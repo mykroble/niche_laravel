@@ -1,0 +1,103 @@
+.left_side {
+    background: rgba(202,202,202,1);
+}
+.form_bg {
+    border-radius: 15px;
+    background: rgba(255,255,255,1);
+    width: 60%;
+    height: 80%;
+    margin: 5% auto 15% auto;
+    padding: 4% 6% 6% 6%;
+    min-height: max-content;
+}
+.logo_space {
+    height: 8%;
+}
+.text_area {
+    font-size: 20px;
+    font-weight:500;
+    text-wrap: nowrap;
+    text-align: left;
+    margin: 8% 0 0 0;
+}
+.form {
+    height: max-content;
+    width: 100%;
+    margin: 6% 0 0 0;
+}
+.text_label {
+    font-size: 12px;
+    font-weight: 400;
+    text-wrap: nowrap;
+}
+.input_box {
+    width: 100%;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style:solid;
+    border-color: rgb(0, 0, 0);
+    padding: 1% 0 1% 0;
+    font-size: small;
+    font-weight: 300;
+    padding-left: 5%;
+}
+.password_div {
+    width: inherit;
+    height: inherit;
+}
+.input_password {
+    width:95%;
+}
+.eye_toggle_img_div{    /*clickable eye toggle*/
+    width: 5%;
+    height: 5%;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    /* border-radius: 15px;
+    border-style: solid;
+    border-width: 1px; */
+}
+.eye_toggle_img {
+    width:100%;
+    height:100%;
+    margin:auto;
+}
+.error_text {
+    font-size: x-small;
+    line-height: normal;
+}
+.button_div {
+    width:inherit;
+    height:inherit;
+    text-align: center;
+}
+.login_button {
+    width: 75%;
+    padding: 5% 0 5% 0;
+    margin-top: 10%;
+    background-color: rgb(255, 145, 0);
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: none;
+    color:white;
+    box-shadow: 0px 2px 3px 0px gray;
+}
+.already_account_div {
+    width:inherit;
+    height:inherit;
+    text-align: end;
+    margin: 0;
+    padding: 0;
+}
+.already_account {
+    width:100%;
+    text-decoration: underline;
+    color:black;
+    font-size: 10px;
+}
+
+.right_side {
+    background: linear-gradient(rgba(0,97,158,1), rgba(255,106,0,1));
+    opacity: 1;
+}
