@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 
-Route::get('/test', function () {
-    return view('test'); // This refers to resources/views/test.blade.php
+Route::get('/', function () {
+    return view('helloWorld'); // This refers to resources/views/test.blade.php
 });
+
+
+Route::get('/name-form', [FormController::class, 'showForm'])->name('name.form');
+Route::post('/name-form', [FormController::class, 'handleForm'])->name('name.submit');
