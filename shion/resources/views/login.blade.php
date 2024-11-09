@@ -31,6 +31,9 @@
     <div class="row full-height">
         <div class="col-md-5">
             <h2>Login</h2>
+            @auth
+            <div class="text-success">Looks like you are already signed in.<a href="{{route('homepage')}}">To Homepage?</a></div>
+            @endauth
             <form method="POST" action="{{ route('loginForm.handleSubmit') }}" class="p-4 border rounded blurred-background">
                 @csrf
                 <div class="mb-3">
@@ -56,7 +59,7 @@
                 </div>
             </form>
         </div>
-
+        
         <div class="col-md-5 px-5">
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -77,7 +80,7 @@
                 </div>
             </div>
         </div>
-
+        
     <footer class="pb-1 text-center text-light">
     <p>© 2024 Niche Find your Niche.</p>
     </footer>
