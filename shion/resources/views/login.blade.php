@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label text-light">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control {{ $errors->has('email') ? 'input_error' : '' }}" id="password" name="password" required>
                     @error('password')
                         <div class="input_error_message">{{$message}}</div>
                     @enderror
