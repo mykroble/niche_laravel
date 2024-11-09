@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.content {
+    z-index: 1;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.btn-lg {
+    padding: 3rem 16rem;
+    font-size: 3rem;
+    background-color:aquamarine;
+    color: black;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    animation: backgroundTransition 5s infinite; 
+    z-index: -1;
+    filter: blur(8px) brightness(0.4);
+}
+
+
+@keyframes backgroundTransition {
+    0% {
+        background-image: url('../css/pics/collecting-vinyls.jpg'); 
+    }
+    33% {
+        background-image: url('../css/pics/cooking.jpg');
+    }
+    66% {
+        background-image: url('../css/pics/painting.jpg');
+    }
+    100% {
+        background-image: url('../css/pics/gardening.jpg');
+    }
+}
