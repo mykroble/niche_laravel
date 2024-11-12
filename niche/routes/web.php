@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -23,3 +24,5 @@ Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.su
 
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
+
+Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
