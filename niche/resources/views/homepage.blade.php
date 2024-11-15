@@ -5,5 +5,6 @@
         @csrf
         <button type="submit">Logout</button>
     </form>
+    <a href="{{route('profile')}}">To Profile</a>
 </body>
 </html>

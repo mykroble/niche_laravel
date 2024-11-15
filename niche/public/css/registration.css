@@ -101,3 +101,11 @@
     background: linear-gradient(rgba(0,97,158,1), rgba(255,106,0,1));
     opacity: 1;
 }
+.input_error{
+    border-color: red;
+}
+
+.input_error_message{
+    font-size: small;
+    color: red;
+}
