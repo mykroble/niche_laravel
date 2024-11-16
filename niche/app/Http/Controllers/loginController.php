@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class loginController extends Controller{
 
@@ -12,6 +11,7 @@ class loginController extends Controller{
         $imageSources = $this->getImageSources();
         return view('login', compact('imageSources'));
     }
+    
     public function getImageSources(){
         return[
             "css/pics/collecting-vinyls.jpg",

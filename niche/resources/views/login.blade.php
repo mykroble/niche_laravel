@@ -34,7 +34,7 @@
             @auth
             <div class="text-success">Looks like you are already signed in.<a href="{{route('homepage')}}">To Homepage?</a></div>
             @endauth
-            <form method="POST" action="{{ route('loginForm.handleSubmit') }}" class="p-4 border rounded blurred-background">
+            <form method="POST" action="{{ route('loginForm.handle') }}" class="p-4 border rounded blurred-background">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label text-light">Email</label>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label text-light">Password</label>
-                    <input type="password" class="form-control {{ $errors->has('email') ? 'input_error' : '' }}" id="password" name="password" required>
+                    <input type="password" class="form-control {{ $errors->has('password') ? 'input_error' : '' }}" id="password" name="password" required>
                     @error('password')
                         <div class="input_error_message">{{$message}}</div>
                     @enderror
@@ -55,7 +55,7 @@
                 </label>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
                 <div class="mt-3">
-                    <p>Don't have an account? <a href="">Create an Account</a></p>
+                    <p>Don't have an account? <a href="{{route('registration')}}">Create an Account</a></p>
                 </div>
             </form>
         </div>
