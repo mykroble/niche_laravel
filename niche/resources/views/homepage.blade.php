@@ -15,7 +15,7 @@
             <!-- the clickable area is too wide we need to make it smaller-->
             <a href="{{ route('profile') }}" class="text-decoration-none text-white">
                 <img src="css/pics/photography.jpeg" alt="Profile Picture" class="rounded-circle mb-2">
-                <h5 class="mb-1">Username</h5> <!-- retrieve from table user-->
+                <h5 class="mb-1">{{session('username','guest')}}</h5> <!-- retrieve from table user-->
             </a>
             <p class="text-muted small">user@example.com</p><!-- retrieve from table user-->
         </div>
