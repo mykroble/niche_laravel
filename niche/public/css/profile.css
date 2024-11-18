@@ -1,12 +1,14 @@
-html{
+.myBody{
+    color:white;
     width:100%;
-    margin: 0;
-}    
-body{
-    width:100%;
-    margin: 0;
+    height:auto;
+    background-color: red;
+    margin:0;
+    padding:0;
 }
-
+.section1{
+    width:100%;
+}
 /* 'MODAL_BASIC_INFO' */
 #modal_basic_info{
     display: none;

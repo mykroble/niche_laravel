@@ -27,3 +27,7 @@ Route::post('/registration', [RegistrationController::class, 'handleRegistration
 
 Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+
+Route::get('/sample', function(){
+    return view('sample');
+})->name('samplePage');
