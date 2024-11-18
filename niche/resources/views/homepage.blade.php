@@ -10,7 +10,7 @@
 <body class="bg-dark">
     
     <!-- Sidebar -->
-    <div class="sidebar bg-dark">
+    <div class="col-3 sidebar bg-dark">
         <div class="profile-section">
             <!-- the clickable area is too wide we need to make it smaller-->
             <a href="{{ route('profile') }}" class="text-decoration-none text-white">
@@ -32,11 +32,11 @@
             <button type="submit" class="btn btn-light w-100">Sign out</button>
         </form>
     </div>
-    <div class="content container-fluid d-flex flex-column min-vh-100">
+    <div class="col-5 content container-fluid d-flex flex-column min-vh-100">
         <div class="row">
 
             <!-- make into a loop -->
-            <div class="col-5 d-flex bg-dark flex-column align-items-center py-4 main-content">
+            <div class="d-flex bg-dark flex-column align-items-center py-4 main-content">
                 <div class="card">
                     <div class="d-flex align-items-center">
                         <img src="https://via.placeholder.com/50" class="rounded-circle mr-3" alt="Niche">
