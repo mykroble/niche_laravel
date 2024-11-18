@@ -9,14 +9,23 @@
     </head>
     <body>
         @include('components.profile_modal_basic_info')
-        <div class="info_box">
-            <div class="right">
-                whatever here
+        <div class="container-fluid">
+            <div class="header">Include header</div>
+            <!-- include header -->
+            <div class="main row vh-100">
+                <div class="sidebar col-sm-3 bg-secondary">sidebar</div>
+                <div class="content col-sm-9">
+                    <div class="content">
+                        <div class="post bg-success">
+                            whatever here
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="left">
-                <button id="edit" onclick="openModal(1)">edit</button>
-            </div>
+            <div class="footer">Footer</div>
         </div>
         <script src="{{ asset('js/profile_modal.js') }}"></script>
     </body>
-    </html>
+</html>
+
+    <!-- <button id="edit" onclick="openModal(1)">edit</button> -->
