@@ -1,7 +1,7 @@
+@extends('layouts.layout')
 @section('loadAssets')
 <link rel="stylesheet" href="{{asset('css/homepage.css')}}" type="text/css">
 @endsection
-@extends('layouts.layout')
 
 @section('title', 'Niche')
 

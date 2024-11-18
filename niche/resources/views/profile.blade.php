@@ -1,9 +1,9 @@
+@extends('layouts.layout')
 @section('loadAssets')
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet" type="text/css">
-@endsection
+<link href="{{ asset('css/profile.css') }}" rel="stylesheet" type="text/css">
 <script src = "{{asset('js/profile_modal.js')}}"></script>
 @include('components.profile_modal_basic_info')
-@extends('layouts.layout')
+@endsection
 
 @section('title', 'Niche Profile')
 
