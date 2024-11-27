@@ -1,4 +1,4 @@
-<div id="modal_basic_info">
+<div id="modal_basic_info" style="display:none">
     <div class="basic_info_form_bg">
 
         <form method="POST" action="{{ route('profileForm1.handle') }}" id="modal_basic_info_form">
