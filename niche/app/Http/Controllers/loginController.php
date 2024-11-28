@@ -44,7 +44,7 @@ class loginController extends Controller{
     public function handleLogout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/homepage');
     }
 }
 
