@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function(){
-    return redirect()->route('homepage');
+    if(!auth::check()){
+        return redirect()->route('login');
+    }
 });
+
+Route::middleware('auth')->prefix('homepage')->group(function(){
+    Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+});
+
 Route::get('/homepage', function(){
     if(auth::check()){
         return view('homepage');
@@ -25,9 +33,7 @@ Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.su
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
 
-Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
-Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+Route::get('/test', function(){
+    return view('posteditor');
+})->name('testPage');
 
-Route::get('/sample', function(){
-    return view('sample');
-})->name('samplePage');
