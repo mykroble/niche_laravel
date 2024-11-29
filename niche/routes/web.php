@@ -13,11 +13,6 @@ Route::get('/', function(){
     }
 });
 
-Route::middleware('auth')->prefix('homepage')->group(function(){
-    Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
-});
-
 Route::get('/homepage', function(){
     if(auth::check()){
         return view('homepage');
@@ -26,9 +21,14 @@ Route::get('/homepage', function(){
     }
 })->name('homepage');
 
+Route::middleware('auth')->prefix('homepage')->group(function(){
+    Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+});
+
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');
-Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.submit');
+Route::get('/logout',[loginController::class, 'handleLogout'])->name('logout.submit');
 
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
