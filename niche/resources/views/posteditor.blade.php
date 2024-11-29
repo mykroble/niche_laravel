@@ -53,14 +53,15 @@
     </style>
 </head>
 <body>
-    <form>
+    <!-- <form>
+        @csrf -->
         <div contenteditable="true" class="editor"></div>
         <input type="file" id="imageInput" accept="image/*" style="display: none;" />
         <button id="addImageBtn">Add Image</button>
         <img src="" id="preview">
         <button id="showCurrentContent" onclick="showCurr()">Show</button>
         <input type="submit" value="Submit">
-    </form>
+    <!-- </form> -->
 
     <script src="{{ asset('js/posteditor.js') }}"></script>
 </body>
