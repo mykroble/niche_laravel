@@ -14,11 +14,11 @@ class loginController extends Controller{
     
     public function getImageSources(){
         return[
-            "css/pics/collecting-vinyls.jpg",
-            "css/pics/gardening.jpg",
-            "css/pics/painting.jpg",
-            "css/pics/yoga.jpg",
-            "css/pics/photocards.jpeg"
+            asset('pics/collecting-vinyls.jpg'),
+            asset('pics/gardening.jpg'),
+            asset('pics/painting.jpg'),
+            asset('pics/yoga.jpg'),
+            asset('pics/photocards.jpeg')
         ];
     }
 
@@ -32,7 +32,7 @@ class loginController extends Controller{
         $arr = $request->only('email', 'password');
 
         if(Auth::attempt($arr, $request->has('remember'))){
-            return redirect()->intended('/homepage');
+            return redirect()->intended('homepage');
         } else {
             return redirect()->back()
                 ->withErrors(['password' => 'Invalid credentials. Please try again.'])
@@ -44,7 +44,7 @@ class loginController extends Controller{
     public function handleLogout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect()->route('login');
     }
 }
 
