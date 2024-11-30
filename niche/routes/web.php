@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -25,6 +26,12 @@ Route::middleware('auth')->prefix('homepage')->group(function(){
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
 });
+
+Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
+    Route::post('/create', [BlogController::class, 'createBlogSubmit'])->name('createBlog.submit');
+    Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
+});
+Route::get('/blog/view', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');

@@ -1,22 +1,72 @@
 // DOM Elements
 const editor = document.querySelector('.editor');
-const imageInput = document.getElementById('imageInput');
+// const imageInput = document.getElementById('imageInput');
 const addImageBtn = document.getElementById('addImageBtn');
 // const showCurr = document.getElementById('showCurrentContent'); //debug
-
+const blogForm = document.getElementById('blogForm');
+var index = 0;
 const preview = document.getElementById("preview");
 
-addImageBtn.addEventListener('click', () => imageInput.click());
+addImageBtn.addEventListener('click', () => {
+    const newInput = document.createElement('input');
+    newInput.type='file';
+    newInput.accept='image/*';
+    newInput.name=`image_${index}`;
+    newInput.style.display='none';
+    
+    newInput.addEventListener("change", (event)=>{
+        var file = event.target.files[0];
+        if (file) {
+            const blobUrl = URL.createObjectURL(file);
+            const wrapperDiv = document.createElement('div');
+            editor.appendChild(wrapperDiv);
+            
+            const imageDiv = document.createElement('div');
+            imageDiv.style.width = '100%';
+            imageDiv.style.flexWrap='wrap';
+            imageDiv.style.display = 'flex';
+            imageDiv.style.justifyContent = 'center';
+            wrapperDiv.appendChild(imageDiv);
+            
+            const image = document.createElement('img');
+            image.style.maxWidth='98%';
+            image.style.maxHeight='100rem';
+            image.className='test';
+            image.src = blobUrl;
+            imageDiv.appendChild(image);
+            // document.querySelector('img').src = blobUrl;
+            
+            blogForm.appendChild(newInput);
+            alert("Dynamic image form added properly with the index: " + index);
+            index++;
+        } else {
+            alert("ERROR:file_not_selected. New input form was not created.");
+            // newInput.remove();
+        }
+    }, {once:true});
+    
+    newInput.click();
+});
+
+
+
+// addImageBtn.addEventListener('click', () => imageInput.click());
 
 imageInput.addEventListener("change", (event) => {
     var file = event.target.files[0];
-    if (file) { 
+    if (file) {
         const blobUrl = URL.createObjectURL(file);
-        var imageDiv = document.createElement('img');
-        imageDiv.style.maxWidth = '98%';
-        imageDiv.src = blobUrl;
+        const wrapperDiv = document.createElement('div');
+        editor.appendChild(wrapperDiv);
+
+        const imageDiv = document.createElement('div');
+        wrapperDiv.appendChild(imageDiv);
+        
+        const image = document.createElement('img');
+        image.style.maxWidth = '98%';
+        image.src = blobUrl;
+        imageDiv.appendChild(image);
         // document.querySelector('img').src = blobUrl;
-        editor.appendChild(imageDiv);
         
     } else {
         alert("ERROR:file_not_selected");

@@ -14,6 +14,7 @@
             overflow: auto;
             background: red;
             resize:none;
+            overflow-wrap: anywhere;
         }
 
         .image-container {
@@ -53,15 +54,15 @@
     </style>
 </head>
 <body>
-    <!-- <form>
-        @csrf -->
+    <form id="blogForm">
+        @csrf
         <div contenteditable="true" class="editor"></div>
-        <input type="file" id="imageInput" accept="image/*" style="display: none;" />
-        <button id="addImageBtn">Add Image</button>
+        <!-- <input type="file" id="imageInput" accept="image/*" style="display: none;" /> -->
+        <button type="button" id="addImageBtn">Add Image</button>
         <img src="" id="preview">
-        <button id="showCurrentContent" onclick="showCurr()">Show</button>
+        <button type="button" id="showCurrentContent" onclick="showCurr()">Show</button>
         <input type="submit" value="Submit">
-    <!-- </form> -->
+    </form>
 
     <script src="{{ asset('js/posteditor.js') }}"></script>
 </body>
