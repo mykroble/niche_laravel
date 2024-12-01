@@ -1,8 +1,6 @@
-// DOM Elements
-const editor = document.querySelector('.editor');
+const editor = document.getElementById('editor');
 // const imageInput = document.getElementById('imageInput');
 const addImageBtn = document.getElementById('addImageBtn');
-// const showCurr = document.getElementById('showCurrentContent'); //debug
 const blogForm = document.getElementById('blogForm');
 var index = 0;
 const preview = document.getElementById("preview");
@@ -11,31 +9,38 @@ addImageBtn.addEventListener('click', () => {
     const newInput = document.createElement('input');
     newInput.type='file';
     newInput.accept='image/*';
-    newInput.name=`image_${index}`;
     newInput.style.display='none';
     
     newInput.addEventListener("change", (event)=>{
         var file = event.target.files[0];
         if (file) {
+            newInput.name=`image_${index}`;
+            // newInput.id=`image_${index}`;   //use this id, add event listener to delete input field when user deletes image from the content.
+
             const blobUrl = URL.createObjectURL(file);
+
             const wrapperDiv = document.createElement('div');
             editor.appendChild(wrapperDiv);
-            
-            const imageDiv = document.createElement('div');
-            imageDiv.style.width = '100%';
-            imageDiv.style.flexWrap='wrap';
-            imageDiv.style.display = 'flex';
-            imageDiv.style.justifyContent = 'center';
-            wrapperDiv.appendChild(imageDiv);
-            
+
             const image = document.createElement('img');
-            image.style.maxWidth='98%';
-            image.style.maxHeight='100rem';
-            image.className='test';
+            image.className='uploaded-image';
+            image.dataset.image= `${index}`;
             image.src = blobUrl;
-            imageDiv.appendChild(image);
-            // document.querySelector('img').src = blobUrl;
-            
+            wrapperDiv.appendChild(image);
+
+            const newLine = document.createElement('div');
+            const br = document.createElement('br');
+            newLine.appendChild(br);
+            editor.appendChild(newLine);
+
+            editor.focus();
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.setStartAfter(newLine);
+            range.setEndAfter(newLine);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
             blogForm.appendChild(newInput);
             alert("Dynamic image form added properly with the index: " + index);
             index++;
@@ -48,61 +53,38 @@ addImageBtn.addEventListener('click', () => {
     newInput.click();
 });
 
-
-
-// addImageBtn.addEventListener('click', () => imageInput.click());
-
-imageInput.addEventListener("change", (event) => {
-    var file = event.target.files[0];
-    if (file) {
-        const blobUrl = URL.createObjectURL(file);
-        const wrapperDiv = document.createElement('div');
-        editor.appendChild(wrapperDiv);
-
-        const imageDiv = document.createElement('div');
-        wrapperDiv.appendChild(imageDiv);
-        
-        const image = document.createElement('img');
-        image.style.maxWidth = '98%';
-        image.src = blobUrl;
-        imageDiv.appendChild(image);
-        // document.querySelector('img').src = blobUrl;
-        
-    } else {
-        alert("ERROR:file_not_selected");
-    }
-});
-
 function showCurr(){
     alert(editor.innerHTML);
 }
 
+function submitForm(){
 
-// Handle Image Upload
-// imageInput.addEventListener('change', (event) => {
-//     editor.focus();
-//     const selection = window.getSelection();
-//     const range = selection.getRangeAt(0);
-//     range.selectNodeContents(editor);  // Select all the contents in the editor
-//     range.collapse(false);  // Collapse the range to the end (where the caret should be)
+}
 
-//     const file = event.target.files[0];
-//     // const file = null;
-//     if (file) {
-//         // Generate a unique identifier for the image
-//         const uniqueId = `image_${Date.now()}`;
-//         // Append the identifier as a placeholder to the editor
-//         const placeholder = document.createTextNode(`{${uniqueId}}`);
-//         if (selection.rangeCount > 0) {
-//             alert(range + "," + range.startContainer + "," + range.endContainer);
-//             if(editor.contains(range.startContainer) || editor.contains(range.endContainer)){
-//                 alert(range);
-//                 range.deleteContents(); // Remove any selected text
-//                 range.insertNode(placeholder);
-//             }
-//         }
-//         imageInput.value='';
-//     } else {
-//         alert("File not selected");
-//     }
-// });
+function constructForm(){
+
+}
+
+const previewModal = document.getElementById('previewModal');
+const previewModalElement = new bootstrap.Modal(previewModal);
+// function showPreview(){
+//     previewModalElement.show();
+//     previewModalElement.hide();
+//     previewModalElement.toggle();
+// }
+
+previewModal.addEventListener('show.bs.modal', function () {
+    console.log('Modal is about to be shown');
+});
+
+previewModal.addEventListener('shown.bs.modal', function () {
+    console.log('Modal is fully shown');
+});
+
+previewModal.addEventListener('hide.bs.modal', function () {
+    console.log('Modal is about to be hidden');
+});
+
+previewModal.addEventListener('hidden.bs.modal', function () {
+    console.log('Modal is fully hidden');
+});

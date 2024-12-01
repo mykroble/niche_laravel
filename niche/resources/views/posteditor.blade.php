@@ -3,67 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Image Upload with Editor</title>
-    <style>
-        .editor {
-            border: 1px solid #ccc;
-            padding: 10px;
-            min-height: 200px;
-            width: 80%;
-            margin: auto auto;
-            overflow: auto;
-            background: red;
-            resize:none;
-            overflow-wrap: anywhere;
-        }
-
-        .image-container {
-            display: inline-block;
-            position: relative;
-            margin: 10px 0;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: red;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .resizable-handle {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            background: blue;
-            cursor: se-resize;
-        }
-    </style>
+    <link href="{{ asset('css/posteditor.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form id="blogForm">
+    <div contenteditable="true" id="editor"></div>
+    <button id="addImageBtn">Add Image</button>
+    <button type="button" id="showCurrentContent" onclick="showCurr()">Show</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#previewModal">
+        Launch demo modal
+    </button>
+    <form id="blogForm" method="POST" action="{{ route('saveBlog.submit') }}">
         @csrf
-        <div contenteditable="true" class="editor"></div>
-        <!-- <input type="file" id="imageInput" accept="image/*" style="display: none;" /> -->
-        <button type="button" id="addImageBtn">Add Image</button>
-        <img src="" id="preview">
-        <button type="button" id="showCurrentContent" onclick="showCurr()">Show</button>
+        <input type="hidden" id="content" name="content">
         <input type="submit" value="Submit">
     </form>
-
+    @include('components/posteditor_preview_modal')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ asset('js/posteditor.js') }}"></script>
+    <script>
+        // Initialize Bootstrap Modal using JavaScript
+        const modalButton = document.querySelector('[data-bs-toggle="modal"]');
+        modalButton.addEventListener('click', function() {
+            console.log("Modal button clicked");
+        });
+    </script>
 </body>
 </html>
