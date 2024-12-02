@@ -3,18 +3,17 @@ const editor = document.getElementById('editor');
 const addImageBtn = document.getElementById('addImageBtn');
 const blogForm = document.getElementById('blogForm');
 var index = 0;
-const preview = document.getElementById("preview");
 
 addImageBtn.addEventListener('click', () => {
     const newInput = document.createElement('input');
-    newInput.type='file';
-    newInput.accept='image/*';
-    newInput.style.display='none';
-    
-    newInput.addEventListener("change", (event)=>{
+    newInput.type = 'file';
+    newInput.accept = 'image/*';
+    newInput.style.display = 'none';
+
+    newInput.addEventListener("change", (event) => {
         var file = event.target.files[0];
         if (file) {
-            newInput.name=`image_${index}`;
+            newInput.name = `image_${index}`;
             // newInput.id=`image_${index}`;   //use this id, add event listener to delete input field when user deletes image from the content.
 
             const blobUrl = URL.createObjectURL(file);
@@ -23,8 +22,8 @@ addImageBtn.addEventListener('click', () => {
             editor.appendChild(wrapperDiv);
 
             const image = document.createElement('img');
-            image.className='uploaded-image';
-            image.dataset.image= `${index}`;
+            image.className = 'uploaded-image';
+            image.dataset.image = `${index}`;
             image.src = blobUrl;
             wrapperDiv.appendChild(image);
 
@@ -48,43 +47,59 @@ addImageBtn.addEventListener('click', () => {
             alert("ERROR:file_not_selected. New input form was not created.");
             // newInput.remove();
         }
-    }, {once:true});
-    
+    }, { once: true });
+
     newInput.click();
 });
 
-function showCurr(){
+const previewModal = document.getElementById('previewModal');
+const titleInput = document.getElementById('title');
+const preview = document.getElementById('preview');
+
+previewModal.addEventListener('show.bs.modal', function () {    //constructs modal before opening
+    if (titleInput.value === "") {
+        const today = new Date();
+        titleInput.value = "My blog " + today.toISOString().split('T')[0];
+    }
+    preview.innerHTML = editor.innerHTML;
+});
+
+const togglePreview = document.getElementById('togglePreview');
+const modalSize = document.getElementById('modal-sizing');
+
+togglePreview.addEventListener('click', function(){
+    if(modalSize.classList.contains('laptopPreview')){
+        modalSize.classList.remove('laptopPreview');
+        modalSize.classList.add('mobilePreview');
+    } else {
+        modalSize.classList.add('laptopPreview');
+    }
+});
+
+const content = document.getElementById('content');
+
+function submitForm() {
+    const appendTitleInput = document.createElement('input');
+    appendTitleInput.value = titleInput.value;
+    appendTitleInput.type='text';
+    appendTitleInput.name='title';
+    appendTitleInput.style.display='none';
+    blogForm.appendChild(appendTitleInput);
+    
+    content.value = editor.innerHTML;
+    
+    //in the content.value, change the src value for every image, and somehow replace it with the filepath after storing.
+    // alert(appendTitleInput.value);
+    // blogForm.submit();
+}
+
+function showCurr() {
     alert(editor.innerHTML);
 }
 
-function submitForm(){
-
-}
-
-function constructForm(){
-
-}
-
-const previewModal = document.getElementById('previewModal');
 const previewModalElement = new bootstrap.Modal(previewModal);
 // function showPreview(){
-//     previewModalElement.show();
+    //     previewModalElement.show();
 //     previewModalElement.hide();
 //     previewModalElement.toggle();
 // }
-
-previewModal.addEventListener('show.bs.modal', function () {
-    console.log('Modal is about to be shown');
-});
-
-previewModal.addEventListener('shown.bs.modal', function () {
-    console.log('Modal is fully shown');
-});
-
-previewModal.addEventListener('hide.bs.modal', function () {
-    console.log('Modal is about to be hidden');
-});
-
-previewModal.addEventListener('hidden.bs.modal', function () {
-    console.log('Modal is fully hidden');
-});

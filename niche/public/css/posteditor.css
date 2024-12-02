@@ -22,11 +22,58 @@
     max-height: 100rem;
 }
 
+.add-image{
+    height:2rem;
+    width:auto;
+}
+
 
 /* PREVIEW MODAL START */
 #preview{
     min-height:40px;
-    width:16%;
+    text-align: initial;
+    justify-content: initial;
+    overflow: auto;
+    overflow-wrap: anywhere;
+}
+
+.mobilePreview{
+    min-width:auto;
+}
+
+.laptopPreview{
+    min-width: 75%;
+}
+
+.toggle-preview-img-div{
+    height:2rem;
+    width: auto;
+    border-radius: 25% 0 0 25%;
+    border-style: groove;
+    border-color: black;
+    background-color: grey;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2); /* Normal shadow */
+    transition: box-shadow 0.2s ease, transform 0.2s ease; /* Smooth transition for shadow and position */
+}
+
+.toggle-preview-img-div:active{
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow for pressed effect */
+    transform: translateY(2px); /* Button moves down to simulate press */
+}
+
+.toggle-preview-img{
+    padding:10%;
+}
+
+#modal-sizing{
+    /* transition: width 1s ease; */
+}
+
+.custom-modal-width .modal-dialog {
+    min-width: 90%; /* Adjust as needed */
+    width: auto;
 }
 
 .modal-overlay {
@@ -46,7 +93,8 @@
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    width: 400px;
+    width: 100%;
+    max-width: 100%;
     text-align: center;
 }
 

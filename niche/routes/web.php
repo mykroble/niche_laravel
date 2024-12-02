@@ -36,7 +36,7 @@ Route::get('/blog/view', [BlogController::class, 'viewBlog'])->name('viewBlog');
 
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');
-Route::get('/logout',[loginController::class, 'handleLogout'])->name('logout.submit');
+Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.submit');
 
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
