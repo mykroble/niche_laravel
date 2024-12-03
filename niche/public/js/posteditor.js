@@ -95,6 +95,7 @@ function submitForm() {
 
 function showCurr() {
     alert(editor.innerHTML);
+    // alert(editor.value);    //can I extract the text values of all child element and then escape XSS??
 }
 
 const previewModalElement = new bootstrap.Modal(previewModal);
