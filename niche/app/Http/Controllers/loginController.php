@@ -31,7 +31,7 @@ class loginController extends Controller{
 
         $arr = $request->only('email', 'password');
 
-        if(Auth::attempt($arr, $request->has('remember'))){
+        if(Auth::attempt($arr, $request->has('remember'))){     //remember not yet
             return redirect()->intended('homepage');
         } else {
             return redirect()->back()
@@ -43,6 +43,7 @@ class loginController extends Controller{
 
     public function handleLogout()
     {
+        
         Auth::logout();
         return redirect()->route('login');
     }

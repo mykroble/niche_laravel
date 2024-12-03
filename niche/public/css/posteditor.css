@@ -1,0 +1,126 @@
+#editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+    width: 80%;
+    margin: auto auto;
+    overflow: auto;
+    /* background: red; */
+    resize:none;
+    overflow-wrap: anywhere;
+}
+
+.wrapper{
+    width:98%;
+    max-width: 98%;
+    height:auto;
+    min-height: 200px;
+}
+
+.uploaded-image{
+    max-width: 98%;
+    max-height: 100rem;
+}
+
+.add-image{
+    height:2rem;
+    width:auto;
+}
+
+
+/* PREVIEW MODAL START */
+#preview{
+    min-height:40px;
+    text-align: initial;
+    justify-content: initial;
+    overflow: auto;
+    overflow-wrap: anywhere;
+}
+
+.mobilePreview{
+    min-width:auto;
+}
+
+.laptopPreview{
+    min-width: 75%;
+}
+
+.toggle-preview-img-div{
+    height:2rem;
+    width: auto;
+    border-radius: 25% 0 0 25%;
+    border-style: groove;
+    border-color: black;
+    background-color: grey;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2); /* Normal shadow */
+    transition: box-shadow 0.2s ease, transform 0.2s ease; /* Smooth transition for shadow and position */
+}
+
+.toggle-preview-img-div:active{
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow for pressed effect */
+    transform: translateY(2px); /* Button moves down to simulate press */
+}
+
+.toggle-preview-img{
+    padding:10%;
+}
+
+#modal-sizing{
+    /* transition: width 1s ease; */
+}
+
+.custom-modal-width .modal-dialog {
+    min-width: 90%; /* Adjust as needed */
+    width: auto;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+}
+
+.modal-close-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.open-modal-btn {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.open-modal-btn:hover {
+    background-color: #45a049;
+}
+/* PREVIEW MODAL END */

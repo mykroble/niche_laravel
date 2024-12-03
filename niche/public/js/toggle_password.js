@@ -10,9 +10,9 @@ function toggleEye(x){
     // alert(eye.type);
     if(eye.type == "text"){
         eye.type = "password";
-        eyeImg.src = "css/registration_pics/eye_closed.svg";
+        eyeImg.src = "registration_pics/eye_closed.svg";
     } else if(eye.type == "password"){
         eye.type = "text";
-        eyeImg.src = "css/registration_pics/eye_open.svg";
+        eyeImg.src = "registration_pics/eye_open.svg";
     }
 }
