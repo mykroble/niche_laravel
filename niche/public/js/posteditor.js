@@ -1,5 +1,4 @@
 const editor = document.getElementById('editor');
-// const imageInput = document.getElementById('imageInput');
 const addImageBtn = document.getElementById('addImageBtn');
 const blogForm = document.getElementById('blogForm');
 var index = 0;
@@ -93,13 +92,14 @@ function submitForm() {
     // blogForm.submit();
 }
 
+function createSection(){
+    const section = createElement('div');
+    section.classList.add('section');
+    const attribute = createElement('div');
+    section.appendChild(attribute);
+    return section;
+}
+
 function showCurr() {
     alert(editor.innerHTML);
 }
-
-const previewModalElement = new bootstrap.Modal(previewModal);
-// function showPreview(){
-    //     previewModalElement.show();
-//     previewModalElement.hide();
-//     previewModalElement.toggle();
-// }
