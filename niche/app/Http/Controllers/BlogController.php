@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mews\Purify\Facades\Purify;
+use League\CommonMark\CommonMarkConverter;
 
 class BlogController extends Controller{
 
@@ -46,6 +47,12 @@ class BlogController extends Controller{
     }
 
     public function createBlogSubmit(){     //return user to empty blog.
+        
+        // $userInput = '# header';
+        // $converter = new CommonMarkConverter();
+        // $htmlContent = $converter->convertToHtml($userInput);
+
+        // return view('posteditor')->with('htmlContent',$htmlContent);
         return view('posteditor');
     }
 

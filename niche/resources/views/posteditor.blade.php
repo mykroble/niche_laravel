@@ -8,11 +8,23 @@
     <link href="{{ asset('css/posteditor.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div contenteditable="true" id="editor"></div>
+    <div id="editor">
+        <div class="section">
+            <div class="text-section" contenteditable="true">Text Here</div>
+        </div>
+        <div class="wrapper-add-section">
+            <div class="add-section">
+                <hr>
+                <button type="button" onclick="createTextSection(event)" class="btn btn-light rounded-circle m-1"><img src="{{ asset('pics/textBox.svg') }}"></button>
+                <button type="button" class="btn btn-light rounded-circle m-1"><img src="{{ asset('pics/imgBox.svg') }}"></button>
+                <hr>
+            </div>
+        </div>
+    </div>
     <button type="button" class="btn btn-light" id="addImageBtn">
         <img class="add-image" src="{{ asset('pics/addImage.svg') }}"></img>
     </button>
-    <!-- <button type="button" id="showCurrentContent" onclick="showCurr()">Show</button> -->
+    <button type="button" id="showCurrentContent" onclick="showCurr()">Show</button>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#previewModal">
         Post Blog
     </button>
@@ -24,5 +36,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ asset('js/posteditor.js') }}"></script>
+    <script>
+        const textBoxURL = "{{ asset('pics/textBox.svg') }}";
+        const imageBoxURL = "{{asset('pics/imgBox.svg') }}";
+    </script>
 </body>
 </html>

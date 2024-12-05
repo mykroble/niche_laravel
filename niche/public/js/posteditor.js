@@ -92,12 +92,56 @@ function submitForm() {
     // blogForm.submit();
 }
 
-function createSection(){
-    const section = createElement('div');
+function createTextSection(event){
+    const wrapperAddSection = event.target.closest('.wrapper-add-section');
+
+    const section = document.createElement('div');
     section.classList.add('section');
-    const attribute = createElement('div');
-    section.appendChild(attribute);
-    return section;
+    
+    const textSection = document.createElement('div');
+    textSection.classList.add('text-section');
+    textSection.contentEditable='true';
+    textSection.innerHTML='Lorem Ipsum...';
+    section.appendChild(textSection);
+
+    const newWrapper = wrapperAddSection.cloneNode(true);
+
+    // const wrapper = document.createElement('div');
+    // wrapper.classList.add('wrapper-add-section');
+    // section.appendChild(wrapper);
+    
+    // const addSection = document.createElement('div');
+    // addSection.classList.add('add-section');
+    // wrapper.appendChild(addSection);
+    
+    // addSection.appendChild(document.createElement('hr'));
+    
+    // const textBtn = document.createElement('button');
+    // textBtn.classList.add('btn', 'btn-light', 'rounded-circle', 'm-1');
+    // addSection.appendChild(textBtn);
+    // const textImg = document.createElement('img');
+    // textImg.src=textBoxURL;
+    // textBtn.appendChild(textImg);
+    
+    // const imgBtn = document.createElement('button');
+    // imgBtn.classList.add('btn', 'btn-light', 'rounded-circle', 'm-1');
+    // addSection.appendChild(imgBtn);
+    // const imageImg = document.createElement('img');
+    // imageImg.src=imageBoxURL;
+    // imgBtn.appendChild(imageImg);
+    
+    // addSection.appendChild(document.createElement('hr'));
+    
+    
+    // editor.appendChild(section);
+    // clickedSection.parentElement.insertBefore(section, clickedSection.nextElementSibling);
+    wrapperAddSection.parentElement.insertBefore(newWrapper, wrapperAddSection.nextElementSibling);
+    wrapperAddSection.parentElement.insertBefore(section, wrapperAddSection.nextElementSibling);
+    alert("pressed");
+}
+
+function createImageSection(x){
+
 }
 
 function showCurr() {
