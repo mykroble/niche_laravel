@@ -12,7 +12,8 @@ class blog_image extends Model
     protected $fillable = [
         'blog_id',
         'file_path',
-        'alt'
+        'alt',
+        'image_id'
     ];
 
     protected $guarded = [

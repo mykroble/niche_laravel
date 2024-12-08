@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomepageController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -18,7 +19,7 @@ Route::get('/', function(){
 
 Route::get('/homepage', function(){
     if(auth::check()){
-        return view('homepage');
+        return app(HomepageController::class) -> loadHomepage();
     } else {
         return redirect()->route('login')->with('error', 'You must be logged in to access this page.');
     }
@@ -30,11 +31,11 @@ Route::middleware('auth')->prefix('homepage')->group(function(){
 });
 
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
-    Route::get('/create', [BlogController::class, 'createBlogSubmit'])->name('createBlog');
+    Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
     Route::post('/save', [BlogController::class, 'saveBlogSubmit'])->name('saveBlog.submit');
 });
-Route::get('/blog/view', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
+Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');

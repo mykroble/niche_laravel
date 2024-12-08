@@ -7,4 +7,9 @@
     background-color: #212529;
     width: 100%;
 }
-
+.blog{
+    border:1px groove grey;
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 1rem;
+}

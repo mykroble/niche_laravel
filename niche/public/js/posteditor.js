@@ -254,7 +254,7 @@ editor.addEventListener('click', function(event) {
 });
 
 const previewModal = document.getElementById('previewModal');
-const titleInput = document.getElementById('title');
+const titleInput = document.getElementById('titleInput');
 const preview = document.getElementById('preview');
 
 previewModal.addEventListener('show.bs.modal', function () {    //constructs modal before opening
@@ -269,13 +269,15 @@ previewModal.addEventListener('show.bs.modal', function () {    //constructs mod
         const clonedSection = section.cloneNode(true);
         const clonedTextSection = clonedSection.querySelector('.text-section');
         if(clonedTextSection){
-                clonedTextSection.contentEditable = 'false';
-                clonedTextSection.innerHTML = DOMPurify.sanitize(clonedTextSection.innerHTML);
+            append=true;
+            clonedTextSection.removeAttribute('contentEditable');
+            clonedTextSection.innerHTML = DOMPurify.sanitize(clonedTextSection.innerHTML);
         } else {
             const clonedMarkedSection = clonedSection.querySelector('.marked-section');
             if(clonedMarkedSection){
-                    clonedMarkedSection.contentEditable = 'false';
-                    clonedMarkedSection.innerHTML = DOMPurify.sanitize(marked.marked(clonedMarkedSection.innerHTML));
+                append=true;
+                clonedMarkedSection.removeAttribute('contentEditable');
+                clonedMarkedSection.innerHTML = DOMPurify.sanitize(marked.marked(clonedMarkedSection.innerHTML));
             } else {
                 const clonedImgSection = clonedSection.querySelector('.image-section');
                 const clonedUploadedImg = clonedImgSection.querySelectorAll('.image-container-uploaded');
@@ -291,7 +293,6 @@ previewModal.addEventListener('show.bs.modal', function () {    //constructs mod
                 }
             }
         }
-
         if(append){
             preview.appendChild(clonedSection);
         }
@@ -313,20 +314,20 @@ togglePreview.addEventListener('click', function(){
 const content = document.getElementById('content');
 
 function submitForm() {
-    const appendTitleInput = document.createElement('input');
-    appendTitleInput.value = titleInput.value;
-    appendTitleInput.type='text';
-    appendTitleInput.name='title';
-    appendTitleInput.style.display='none';
-    blogForm.appendChild(appendTitleInput);
+    const contentInput = document.getElementById('content');
+    contentInput.value = DOMPurify.sanitize(preview.innerHTML);
     
-    content.value = editor.innerHTML;
-    
-    //in the content.value, change the src value for every image, and somehow replace it with the filepath after storing.
-    // alert(appendTitleInput.value);
-    // blogForm.submit();
+    const images = preview.querySelectorAll('img');
+    images.forEach(image => {
+        image.removeAttribute('src');
+    });
+    const titleInput = document.getElementById('titleInput');
+    const title = document.getElementById('title');
+    title.value = titleInput.value;
+    alert(contentInput.value);
+    blogForm.submit();
 }
 
 function showCurr() {
-    alert(editor.innerHTML);
+    alert(preview.innerHTML);
 }
