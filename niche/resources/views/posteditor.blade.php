@@ -27,7 +27,6 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn" onclick="showCurr()">Show</button>
     <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#previewModal">
         Post Blog
     </button>

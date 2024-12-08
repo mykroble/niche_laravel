@@ -49,14 +49,14 @@ class BlogController extends Controller{
                 $blogImageData[] = ['blog_id' => $blogId, 'file_path' => $path, 'image_id' => $imageId];
             }
         }
-        $insertCheck = false;
         if(!empty($blogImageData)){
+            $insertCheck = false;
             $insertCheck = DB::table('blog_images')->insert($blogImageData);
-        }
-        if($insertCheck){
-            return redirect()->route('homepage');
-        } else {
-            return back()->with('error', 'Failed to upload images');
+            if($insertCheck){
+                return redirect()->route('homepage');
+            } else {
+                return back()->with('error', 'Failed to upload images');
+            }
         }
     }
 
