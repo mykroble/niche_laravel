@@ -8,7 +8,7 @@ YOU MIGHT NEED THESE:
    php artisan migrate  
    php artisan storage:link  
    php artisan serve  
-
+   
    Open the .env file and update the following settings as needed:  
    APP_NAME=YourAppName  
    APP_URL=http://127.0.0.1:8000  
