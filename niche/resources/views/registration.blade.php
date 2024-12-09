@@ -40,7 +40,7 @@
                     <div class="d-flex justify-content-around password_div">
                         <input class="input_box input_password {{ $errors->has('r_password') ? 'input_error' : '' }}" type="password" id="r_password" name="r_password" required>
                         <div class="d-inline-block eye_toggle_img_div" onclick="toggleEye(1)">
-                            <img src="{{asset('css/registration_pics/eye_closed.svg')}}" class="eye_toggle_img" id="eye_toggle_1"></img>
+                            <img src="{{asset('registration_pics/eye_closed.svg')}}" class="eye_toggle_img" id="eye_toggle_1"></img>
                         </div>
                     </div>
                     @if(session()->has('error'))
@@ -54,7 +54,7 @@
                     <div class="d-flex justify-content-around password_div">
                         <input class="input_box input_password" type="password" id="r_password_confirmation" name="r_password_confirmation" required>
                         <div class="d-inline-block eye_toggle_img_div" onclick="toggleEye(2)">
-                            <img src="{{asset('css/registration_pics/eye_closed.svg')}}" class="eye_toggle_img" id="eye_toggle_2"></img>
+                            <img src="{{asset('registration_pics/eye_closed.svg')}}" class="eye_toggle_img" id="eye_toggle_2"></img>
                         </div>
                     </div>
                     <label for="proceed" class="text-label">

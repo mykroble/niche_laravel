@@ -14,9 +14,13 @@
     <a href="{{route('message')}}">Messages</a><!-- not final-->
     <a href="#">Bookmarks</a>
     <a href="#">More</a>
-    <button class="btn btn-primary w-100 mt-3">Post</button><!-- i remember you saying you want 
-    something like this but i feel you meant for it to be in main-->
-        <button href="{{ route('logout.submit') }}"  class="btn btn-light w-100">Sign out</button>
+    <form method="GET" action="{{ route('createBlog') }}">
+        <button type="submit" class="btn btn-primary w-100 mt-3">Post</button><!-- i remember you saying you want 
+        something like this but i feel you meant for it to be in main-->
+    </form>
+    <form method="POST" action="{{ route('logout.submit') }}">
+        @csrf
+        <button type="submit" class="btn btn-light w-100">Sign out</button>
     </form>
 
     

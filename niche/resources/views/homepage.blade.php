@@ -15,14 +15,31 @@
                 <strong>Niche Title</strong> <small>idk</small>
             </div>
         </div>
-
-        <p class="mt-3">My Experience at the mall</p>
-        <div class="d-flex justify-content-start">
-            <span>503 posts</span>
-            <span>30 active</span>
-            <span>25K visits</span>
-            <span>371 Community Members</span>
-        </div>
+        @foreach ($blogs as $blog)
+            <div class="blog" data-blog-id="{{ $blog->id }}">
+                <p class="mt-2">{{ $blog->username }}</p>
+                <h5>{{ $blog->title }}</h5>
+                <!-- <div class="preview">{!! $blog->content !!}</div> -->
+                    <div class="d-flex justify-content-start">
+                        <span>503 posts</span>
+                        <span>30 active</span>
+                        <span>25K visits</span>
+                        <span>371 Community Members</span>
+                    </div>
+            </div>
+        @endforeach
     </div>
 </div>
+<script>
+    const cards = document.querySelector('.card');
+
+    cards.addEventListener('click', function(event){
+        if (event.target.matches('.blog')) {
+            let id = event.target.dataset.blogId;
+            console.log('clicked' + id);
+            var url = "{{ route('viewBlog', ['value' => 'blogId']) }}".replace('blogId', id);
+            window.location.href = url;
+        }
+    })
+</script>
 @endsection

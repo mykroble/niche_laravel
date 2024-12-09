@@ -1,0 +1,288 @@
+#editor {
+    border: 2px groove #ccc;
+    /* border-style:dashed; */
+    padding: 10px;
+    min-height: 200px;
+    /* width: 80%; */
+    width:70rem;
+    margin: auto auto;
+    overflow: auto;
+    /* background: red; */
+}
+
+.section{
+    border:none;
+    width:100%;
+    height:fit-content;
+    /* display:flex;
+    justify-content: space-between; */
+}
+#preview .section{
+    margin:0;
+}
+.wrapper-add-section{
+    min-height:0.5rem;
+}
+.add-section{
+    width: 100%;
+    height:0;
+    display:none;
+    opacity: 0;
+    margin: 0.2rem;
+    display:flex;
+    justify-content: space-around;
+    transform: scale(0.1);
+    transition:opacity 0.4s ease, transform 0.4s ease, height 0.4s ease;
+}
+.wrapper-add-section:hover .add-section{
+    display:flex;
+    opacity:1;
+    transform: scale(1);
+    height:2rem;
+}
+.add-section hr{
+    border: none;
+    border-top: 4px dotted black;
+    height: 0;
+    width:50%;
+}
+.add-section button{
+    margin:0 0.3rem 0 0.3rem;
+    /* margin:0; */
+    /* max-height:2rem;
+    max-width:2rem; */
+    width:2rem;
+    height:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.add-section img{
+    /* max-width: 100%;
+    max-height: 100%; */
+    width:100%;
+    height:100%;
+    object-fit: contain;
+    display:block;
+}
+/* .section-attribute{
+    padding:auto 0 auto 0;
+    height: 10rem;
+    width: 3rem;
+    border-style: solid;
+} */
+
+.text-section{
+    width:100%;
+    outline:none;
+    resize:none;
+    overflow:auto;
+    overflow-wrap:anywhere;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    transition: border 0.2s ease;
+}
+#editor .text-section:hover{
+    border: 1px solid black;
+}
+#editor .text-section:focus{
+    border: 1px solid black;
+}
+#preview .text-section{
+    border:none;
+}
+.marked-section{
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    outline:none;
+    resize:none;
+    overflow:auto;
+    overflow-wrap:anywhere;
+    border: 1px groove transparent;
+    box-sizing: border-box;
+    transition: border 0.2s ease;
+}
+.marked-section p{
+    margin:0;
+}
+#editor .marked-section:hover{
+    border: 1px solid black;
+}
+#editor .marked-section:focus{
+    border: 1px solid black;
+}
+#preview .marked-section{
+    background: none;
+}
+.image-section{
+    width:100%;
+    /* height:20rem; */
+    min-height:fit-content;
+    max-height:max-content;
+    display:flex;
+    justify-content:space-between;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    transition: border 0.2s ease;
+}
+#editor .image-section:hover{
+    border: 1px solid black;
+}
+.image-container{
+    border: dashed 2px rgb(192, 192, 192);
+    width:100%;
+    height:100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin:0.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border 0.2s ease;
+}
+#editor .image-container:hover{
+    border-color: grey;
+}
+.image-container-plus{
+    height:3rem;
+    width:3rem;
+}
+.image-container-uploaded{
+    width:100%;
+    height:100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin:0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.uploaded-image{
+    max-width:100%;
+    max-height:100rem;
+}
+.image-container-empty{
+    width:100%;
+    height:100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin:0.5rem;
+}
+
+/* .wrapper{
+    width:98%;
+    max-width: 98%;
+    height:auto;
+    min-height: 200px;
+} */
+
+/* .uploaded-image{
+    max-width: 98%;
+    max-height: 100rem;
+} */
+
+/* .add-image{
+    height:2rem;
+    width:auto;
+} */
+
+
+/* PREVIEW MODAL START */
+#preview{
+    min-height:40px;
+    text-align: initial;
+    justify-content: initial;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    font-size: smaller;
+}
+
+.mobilePreview{
+    min-width:auto;
+}
+
+.laptopPreview{
+    min-width: 75%;
+}
+
+.toggle-preview-img-div{
+    height:2rem;
+    width: auto;
+    border-radius: 25% 0 0 25%;
+    border-style: groove;
+    border-color: black;
+    background-color: grey;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2); /* Normal shadow */
+    transition: box-shadow 0.2s ease, transform 0.2s ease; /* Smooth transition for shadow and position */
+}
+
+.toggle-preview-img-div:active{
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow for pressed effect */
+    transform: translateY(2px); /* Button moves down to simulate press */
+}
+
+.toggle-preview-img{
+    padding:10%;
+}
+
+#modal-sizing{
+    /* transition: width 1s ease; */
+}
+
+.custom-modal-width .modal-dialog {
+    min-width: 90%; /* Adjust as needed */
+    width: auto;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+}
+
+.modal-close-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.open-modal-btn {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.open-modal-btn:hover {
+    background-color: #45a049;
+}
+/* PREVIEW MODAL END */
