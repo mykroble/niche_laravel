@@ -31,14 +31,24 @@ class ProfileController extends Controller{
             ]
         );
         $data = [
-            '' => '',
-            '' => '',
-            '' => ''
+            'display_name' => $request->input('disp_name'),
+            'birthday' => $request->input('birthday'),
+            'gender' => $request->input('gender'),
+            'country' => $request->input('country')
         ];
+        
 
-        $user = User::create($data);
+        $user = User::find($id); 
 
-        //do checking and redirect and stuff, too tired ill sleep. ITS 2 AM AHHHH
+        if ($user) {
+            $user->update($data); 
+        } else {
+            // Handle the case when the user is not found, e.g., return an error
+        }
+        
+
+        // temporary php code will update later to include sesssion data for user update 
+        // - dale 
     }
 }
 

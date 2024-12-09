@@ -24,4 +24,4 @@ use this for testing db connection and logging in(because password needs to be h
 INSERT INTO `users` (`id`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (NULL, 'test', 'test@test.com', NULL, '$2y$12$Ti99f.3.eitg6TOX9riof.9TXwlaK6skwbm7LRBtQjHkpEbo7xfly', NULL, NULL, NULL)
 
 email: test@test.com
-password: Testing123!
+password: Testing123! 

@@ -1,11 +1,11 @@
-.myBody{
-    color:white;
-    width:100%;
-    height:auto;
-    /* background-color: red; */
-    margin:0;
-    padding:0;
+.myBody {
+    color: white;
+    width: 80%;  
+    height: auto;
+    margin: 20px auto; 
+    padding: 0;
 }
+
 .section1{
     width:100%;
 }
@@ -33,3 +33,55 @@
     font-size: smaller;
 }
 /* END 'MODAL_BASIC_INFO' */
+/*Css for buttons  */
+/* Basic styles for the buttons */
+.buttonsection {
+    display: flex;
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    width: 50%;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Line at the end of buttons */
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;  
+    height: 3px;
+    background-color: blue;
+    transition: all 0.3s ease;
+  }
+  
+  /* Add active class styles to handle the underline transition when toggled */
+  button.active + .underline {
+    left: 50%;  /* Slide the underline to the second button */
+  }
+  
+
+  button.active {
+    font-weight: bold;
+    color: blue;
+  }
+  .hidden {
+    display: none;
+}
+.visible {
+    display: block;
+}

@@ -37,6 +37,7 @@ Route::middleware('auth')->prefix('blog')->group(function(){                // h
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 
+
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');
 Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.submit');
