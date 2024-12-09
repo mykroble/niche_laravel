@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <label for="titleInput">Title: </label>
-                <input class="form-control" type="text" id="title" placeholder="title">
+                <input class="form-control" type="text" id="titleInput" placeholder="title">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm()">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Confirm</button>
             </div>
         </div>
     </div>
