@@ -1,17 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\FormController;
-
-Route::get('/', function () {
-    return view('helloWorld'); // This refers to resources/views/test.blade.php
-});
-
-
-Route::get('/name-form', [FormController::class, 'showForm'])->name('name.form');
-Route::post('/name-form', [FormController::class, 'handleForm'])->name('name.submit');
-=======
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProfileController;
@@ -59,4 +48,3 @@ Route::get('/test', function(){
     return view('posteditor');
 })->name('testPage');
 
->>>>>>> 363a06a8c3fc8c6f99a94cd981e8c2a5b5de9236
