@@ -9,12 +9,9 @@
 </head>
 <body>
     <div class="title sticky-top bg-primary">{{ $blogData->title }}</div>
-    <div id="content"></div>
+    <div id="content">{!!$blogData->content !!}</div>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.3/lib/marked.umd.min.js" integrity="sha512-Kt7350NAX8m05J2xcXWI1kAyZQjLm5c/yW0tz5qOpPyKhaidt+p5axcaL3TCaoYfJ11eHOO8nXKtXyGo+z5PMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>
-        const content = document.getElementById('content');
-        content.style.display='none';
-        content.innerHTML = '{!! $blogData->content !!}';
 
         const blogImages = @json($blogImages);
         const imageContainers = content.querySelectorAll('.image-container-uploaded');
