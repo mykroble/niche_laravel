@@ -11,7 +11,7 @@
     <a href="{{route('homepage')}}">Home</a>
     <a href="#">Explore</a>
     <a href="#">Notifications</a>
-    <a href="#">Messages</a><!-- not final-->
+    <a href="{{route('message')}}">Messages</a><!-- not final-->
     <a href="#">Bookmarks</a>
     <a href="#">More</a>
     <form method="GET" action="{{ route('createBlog') }}">
