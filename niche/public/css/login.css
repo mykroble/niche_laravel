@@ -1,0 +1,21 @@
+.carousel-inner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; 
+}
+
+.full-height {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input_error{
+    border-color: red;
+}
+
+.input_error_message{
+    font-size: small;
+    color: red;
+}
