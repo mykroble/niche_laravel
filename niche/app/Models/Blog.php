@@ -19,7 +19,8 @@ class Blog extends Model
         'blog_id',
         'date_created',
         'date_last_updated',
-        'is_public'
+        'is_public',
+        'is_available'
     ];
 
 }
