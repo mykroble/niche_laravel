@@ -8,13 +8,13 @@ if that doesnt work or error, maybe you dont have composer installed.
 try command:
 composer install
 
-YOU MIGHT NEED THESE:
-   composer install
-   cp .env.example .env
-   php artisan key:generate
-   php artisan migrate
-   php artisan storage:link
-   php artisan serve
+YOU MIGHT NEED THESE:  
+   composer install  
+   cp .env.example .env  
+   php artisan key:generate  
+   php artisan migrate  
+   php artisan storage:link  
+   php artisan serve  
 
    Open the .env file and update the following settings as needed:
    APP_NAME=YourAppName
