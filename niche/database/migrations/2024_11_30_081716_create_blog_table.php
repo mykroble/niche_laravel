@@ -9,36 +9,38 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->id('blog_id');
+            $table->id();
             $table->unsignedBigInteger('author_user_id');
             $table->string('title');
             $table->longText('content');
             $table->dateTime('date_created');
             $table->dateTime('date_last_updated');
             $table->boolean('is_public')->default(0);
+            $table->boolean('is_available')->default(0);
 
-            $table->foreign('author_user_id')->reference('user_id')->on('user')->onDelete('cascade');
+            $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
         });
         
         Schema::create('blog_images', function(Blueprint $table){
-            $table->id('blog_image_id');
+            $table->id();
             $table->unsignedBigInteger('blog_id');
             $table->string('file_path');
-            $table->string('alt');
+            $table->integer('image_id');
+            $table->string('alt')->default('uploaded image');
             
-            $table->foreign('blog_id')->reference('blog_id')->on('blog')->onDelete('cascade');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
         });
 
         Schema::create('comments', function(Blueprint $table){
-            $table->id('comment_id');
-            $table->unsingedBigInteger('blog_id');
-            $table->unsingedBigInteger('author_user_id');
-            $table->unsingedBigInteger('reply_to_user_id');
+            $table->id();
+            $table->unsignedBigInteger('blog_id');
+            $table->unsignedBigInteger('author_user_id');
+            $table->unsignedBigInteger('reply_to_user_id');
             $table->longText('content');
 
-            $table->foreign('blog_id')->reference('blog_id')->on('blog')->onDelete('cascade');
-            $table->foreign('author_user_id')->reference('user_id')->on('user')->onDelete('cascade');
-            $table->foreign('reply_to_user_id')->reference('user_id')->on('user')->onDelete('cascade');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+            $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('reply_to_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -47,6 +49,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog');
+        Schema::dropIfExists('comments');
+        Schema::dropIfExists('blog_images');
+        Schema::dropIfExists('blogs');
     }
 };

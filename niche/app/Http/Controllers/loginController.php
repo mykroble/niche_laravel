@@ -31,8 +31,8 @@ class loginController extends Controller{
 
         $arr = $request->only('email', 'password');
 
-        if(Auth::attempt($arr, $request->has('remember'))){     //remember not yet
-            return redirect()->intended('homepage');
+        if(Auth::attempt($arr, $request->has('remember'))){
+            return redirect()->route('homepage');
         } else {
             return redirect()->back()
                 ->withErrors(['password' => 'Invalid credentials. Please try again.'])
@@ -43,7 +43,6 @@ class loginController extends Controller{
 
     public function handleLogout()
     {
-        
         Auth::logout();
         return redirect()->route('login');
     }
