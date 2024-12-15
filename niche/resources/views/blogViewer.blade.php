@@ -1,3 +1,11 @@
+@extends('layouts.layout')
+@section('loadAssets')
+<link rel="stylesheet" href="{{asset('css/homepage.css')}}" type="text/css">
+@endsection
+
+@section('title', 'Niche')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +16,8 @@
     <link href="{{ asset('css/blogViewer.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="title sticky-top bg-primary">{{ $blogData->title }}</div>
-    <div id="content">{!!$blogData->content !!}</div>
+    <div class="title sticky-top p-3 text-white"><h2>{{ $blogData->title }}</h2></div>
+    <div id="content" class="text-white">{!!$blogData->content !!}</div>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.3/lib/marked.umd.min.js" integrity="sha512-Kt7350NAX8m05J2xcXWI1kAyZQjLm5c/yW0tz5qOpPyKhaidt+p5axcaL3TCaoYfJ11eHOO8nXKtXyGo+z5PMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>
 
@@ -32,3 +40,4 @@
     <script src="{{ asset('js/blogViewer.js') }}"></script>
 </body>
 </html>
+@endsection
