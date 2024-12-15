@@ -31,15 +31,16 @@
     </div>
 </div>
 <script>
-    const cards = document.querySelector('.card');
 
-    cards.addEventListener('click', function(event){
-        if (event.target.matches('.blog')) {
-            let id = event.target.dataset.blogId;
+    const blogs = document.querySelectorAll('.blog');
+    blogs.forEach(blog => {
+        blog.addEventListener('click', function(event){
+            let id = blog.dataset.blogId;
             console.log('clicked' + id);
             var url = "{{ route('viewBlog', ['value' => 'blogId']) }}".replace('blogId', id);
             window.location.href = url;
-        }
-    })
+        })
+    });
+
 </script>
 @endsection
