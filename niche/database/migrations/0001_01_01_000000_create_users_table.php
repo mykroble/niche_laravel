@@ -24,7 +24,13 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
+        Schema::create('channel', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->dateTime('date_created');
+            $table->dateTime('date_last_updated');
+            $table->boolean('is_public')->default(0);
+        });
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
