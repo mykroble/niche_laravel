@@ -17,7 +17,10 @@
         </div>
         @foreach ($blogs as $blog)
             <div class="blog" data-blog-id="{{ $blog->id }}">
-                <p class="mt-2">{{ $blog->username }}</p>
+                <p class="mt-2">
+                    {{ $blog->display_name }} 
+                    <span class="text-secondary">@ {{ $blog->username }}</span>
+                </p>
                 <h5>{{ $blog->title }}</h5>
                 <!-- <div class="preview">{!! $blog->content !!}</div> -->
                     <div class="d-flex justify-content-start">
