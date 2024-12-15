@@ -65,6 +65,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('user_channels');
+        Schema::dropIfExists('channel');
         Schema::dropIfExists('comments');
         Schema::dropIfExists('blog_images');
         Schema::dropIfExists('blogs');
