@@ -21,10 +21,8 @@
                 <h5>{{ $blog->title }}</h5>
                 <!-- <div class="preview">{!! $blog->content !!}</div> -->
                     <div class="d-flex justify-content-start">
-                        <span>503 posts</span>
-                        <span>30 active</span>
-                        <span>25K visits</span>
-                        <span>371 Community Members</span>
+                        <span class="px-3">5 likes</span>
+                        <span>10 Community Members</span>
                     </div>
             </div>
         @endforeach

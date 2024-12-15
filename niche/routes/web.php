@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomepageController;
-=======
+
 use App\Http\Controllers\ChatController;
 
 use Illuminate\Support\Facades\Auth;
