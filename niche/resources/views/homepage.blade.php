@@ -29,12 +29,13 @@
                     <span class="text-secondary">@ {{ $blog->username }}</span>
                 </p>
                 <h5>{{ $blog->title }}</h5>
-                <!-- <div class="preview">{!! $blog->content !!}</div> -->
+                <div class="preview">{!! $blog->content !!}</div>
                     <div class="d-flex justify-content-start">
                         <span class="px-3">5 likes</span>
                         <span>10 Community Members</span>
                     </div>
             </div>
+            <hr>
         @endforeach
     </div>
 </div>
