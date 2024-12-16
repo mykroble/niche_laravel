@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ExploreController;
 
 use App\Http\Controllers\ChatController;
 
@@ -21,8 +22,10 @@ Route::get('/', function(){
         return redirect()->route('homepage');
     }
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/homepage', [HomepageController::class, 'loadHomepage'])->name('homepage');
+    Route::get('/explore', [ExploreController::class, 'loadExplore'])->name('explore');
+    Route::post('/explore', [ExploreController::class, 'joinChannel'])->name('channel.join');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/bookmark', [HomepageController::class, 'bookmarkBlog'])->name('bookmark.blog');

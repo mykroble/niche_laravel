@@ -16,11 +16,8 @@
                     @include('shared.sidebar')
                 </div>
             </div>
-            <div class="col-sm-6 content-area">
+            <div class="col-sm-10">
                 @yield('content')
-            </div>
-            <div class="col-sm-4 m-0 p-0">
-                @include('shared.rightsidebar')
             </div>
         </div>
     </div>
