@@ -32,8 +32,52 @@ class HomepageController extends Controller{
         }
 
         $blogs = $blogsQuery->limit(100)->get();
+        
+        $bookmarkedBlogIds = DB::table('bookmarks')
+        ->where('user_id', Auth::id())
+        ->pluck('blog_id')
+        ->toArray();
 
-        return view('homepage', compact('blogs', 'channels', 'selectedChannelId'));
+    return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
+    }
+    public function bookmarkBlog(Request $request)
+    {
+        $blogId = $request->input('blog_id');
+        $userId = Auth::id();
+
+        $alreadyBookmarked = DB::table('bookmarks')
+            ->where('user_id', $userId)
+            ->where('blog_id', $blogId)
+            ->exists();
+
+        if (!$alreadyBookmarked) {
+            
+            DB::table('bookmarks')->insert([
+                'user_id' => $userId,
+                'blog_id' => $blogId,
+                'date_added' => now(),
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+    public function showBookmarks(){
+        $bookmarks = DB::table('bookmarks')
+        ->join('blogs', 'bookmarks.blog_id', '=', 'blogs.id')
+        ->join('users', 'blogs.author_user_id', '=', 'users.id')
+        ->select(
+            'blogs.id',
+            'blogs.title',
+            'blogs.content',
+            'blogs.date_created',
+            'users.username',
+            'users.display_name'
+        )
+        ->where('bookmarks.user_id', Auth::id())
+        ->orderBy('bookmarks.date_added', 'desc')
+        ->get();
+
+    return view('bookmarks', ['blogs' => $bookmarks]);
     }
 }
 ?>
