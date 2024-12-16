@@ -1,0 +1,29 @@
+.chat-container {
+    height: 75vh;
+    border-radius: 10px;
+  }
+  
+  .sidebar {
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-list .list-group-item {
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chat-list .list-group-item:hover {
+    /* background-color: #d6d8db; */
+  }
+  
+  .chat-section {
+    /* background: #fff; */
+  }
+  
+  .message p {
+    margin: 0;
+  }
+  
+  .input-section {
+    /* background-color: #fff; */
+  }
