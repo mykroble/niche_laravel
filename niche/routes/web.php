@@ -20,15 +20,9 @@ Route::get('/', function(){
         return redirect()->route('homepage');
     }
 });
-
-Route::get('/homepage', function(){
-    if(auth::check()){
-        return app(HomepageController::class) -> loadHomepage();
-    } else {
-        return redirect()->route('login')->with('error', 'You must be logged in to access this page.');
-    }
-})->name('homepage');
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/homepage', [HomepageController::class, 'loadHomepage'])->name('homepage');
+});
 
 
 

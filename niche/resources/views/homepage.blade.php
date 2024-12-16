@@ -9,12 +9,19 @@
 
 <div class="d-flex bg-dark flex-column align-items-center main-content">
     <div class="card">
-        <div class="d-flex align-items-center">
-            <img src="https://via.placeholder.com/50" class="rounded-circle mr-3" alt="Niche">
-            <div class="m-4">
-                <strong>Niche Title</strong> <small>idk</small>
-            </div>
-        </div>
+
+    <div class="channels-section my-4">
+    <h4 class="text-white">Channels</h4>
+    <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
+        @foreach ($channels as $channel)
+            <a href="{{ route('homepage', ['channel_id' => $channel->id]) }}" 
+               class="col-auto bg-warning channel border p-3 mb-2 rounded mx-2 {{ $selectedChannelId == $channel->id ? 'bg-secondary text-white' : '' }}"
+               style="flex: 0 0 auto;">
+                <strong>{{ $channel->title }}</strong>
+            </a>
+        @endforeach
+    </div>
+</div>
         @foreach ($blogs as $blog)
             <div class="blog" data-blog-id="{{ $blog->id }}">
                 <p class="mt-2">
