@@ -8,6 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
+        //added
+        // Schema::create('channel', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('title');
+        //     $table->dateTime('date_created');
+        //     $table->dateTime('date_last_updated');
+        //     $table->boolean('is_public')->default(0);
+        // });
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_user_id');
@@ -17,10 +25,19 @@ return new class extends Migration
             $table->dateTime('date_last_updated');
             $table->boolean('is_public')->default(0);
             $table->boolean('is_available')->default(0);
-
+            $table->unsignedBigInteger('channel_id');
+            $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');//added
             $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
         });
         
+        Schema::create('user_channels', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('channel_id');
+            $table->dateTime('date_added');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');
+        });
         Schema::create('blog_images', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('blog_id');
@@ -49,6 +66,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('user_channels');
+        Schema::dropIfExists('channel');
         Schema::dropIfExists('comments');
         Schema::dropIfExists('blog_images');
         Schema::dropIfExists('blogs');
