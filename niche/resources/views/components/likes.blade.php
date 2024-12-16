@@ -1,5 +1,12 @@
+@props (['likes'])
 <div id="likes-content">
-    <h2>Likes Section</h2>
-    <p>This is the content for the likes section.</p>
-<!-- make php function for this later-->
+    <p> likes goes here </p>
+    <!--
+@foreach($likes as $like)
+        <div class="like">
+            <p><strong>Liked Item:</strong> {{ $like->item_name ?? 'Placeholder Item' }}</p>
+            <p><strong>Date Liked:</strong> {{ $like->created_at ?? 'Placeholder Date' }}</p>
+        </div>
+    @endforeach
+-->
 </div>

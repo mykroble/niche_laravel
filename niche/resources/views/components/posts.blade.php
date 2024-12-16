@@ -1,4 +1,12 @@
+@props (['posts'])
 <div id="posts-content">
-    <h2>Posts Section</h2>
-    <p>This is the content for the posts section.</p>
+    <p> This is posts</p>
+    <!-- 
+@foreach($posts as $post)
+        <div class="post">
+            <p><strong>Title:</strong> {{ $post->title ?? 'Placeholder Title' }}</p>
+            <p><strong>Content:</strong> {{ $post->content ?? 'Placeholder Content' }}</p>
+        </div>
+    @endforeach
+-->
 </div>
