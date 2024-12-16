@@ -6,6 +6,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\HomepageController;
 
 use App\Http\Controllers\ChatController;
@@ -23,7 +24,13 @@ Route::get('/', function(){
 Route::middleware(['auth'])->group(function () {
     Route::get('/homepage', [HomepageController::class, 'loadHomepage'])->name('homepage');
 });
-
+Route::middleware('auth')->group(function () {
+    Route::post('/bookmark', [HomepageController::class, 'bookmarkBlog'])->name('bookmark.blog');
+    Route::get('/bookmarks', [HomepageController::class, 'showBookmarks'])->name('bookmarks');
+    Route::post('/bookmarks/remove', [BookmarksController::class, 'removeBookmark'])->name('bookmarks.remove');
+    Route::post('/bookmarks/add', [BookmarksController::class, 'addBookmark'])->name('bookmarks.add');
+    Route::post('/bookmarks/toggle', [BookmarksController::class, 'toggleBookmark'])->name('bookmarks.toggle');
+});
 
 
 Route::middleware('auth')->group(function () {
