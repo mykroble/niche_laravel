@@ -77,5 +77,22 @@ public function handleProfileForm1(Request $request)
     return response()->json(['message' => 'Profile updated successfully.'], 200);
 }
         
+public function destroy($id)
+{
+    $user = Auth::user();
 
+    // Find the post by ID
+    $post = Blog::find($id);
+
+    // Check if the post exists and if the authenticated user is the author
+    if (!$post || $post->author_user_id !== $user->id) {
+        return redirect()->route('profile')->with('error', 'You can only delete your own posts.');
+    }
+
+    // Delete the post
+    $post->delete();
+
+    // Redirect back to the profile page with a success message
+    return redirect()->route('profile')->with('success', 'Post deleted successfully.');
+}
 }

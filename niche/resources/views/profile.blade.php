@@ -48,6 +48,12 @@
                     <span class="px-3">5 likes</span>
                     <span>10 Community Members</span>
                 </div>
+                        <!-- Delete button -->
+        <form action="{{ route('posts.delete', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
             </div>
             <hr>
         @endforeach
@@ -68,3 +74,14 @@
 </div>
 <script src="{{ asset('/js/profilescript.js') }}"></script>
 @endsection
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif

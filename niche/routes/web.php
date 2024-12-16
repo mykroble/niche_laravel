@@ -41,11 +41,10 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->prefix('homepage')->group(function() {
-    // Route to show profile page
+
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
-    
-    // Route to handle profile update form submission
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+    Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 });
 
 
