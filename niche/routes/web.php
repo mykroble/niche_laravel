@@ -33,11 +33,14 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-Route::middleware('auth')->prefix('homepage')->group(function(){
+Route::middleware('auth')->prefix('homepage')->group(function() {
+    // Route to show profile page
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
+    
+    // Route to handle profile update form submission
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
 });
+
 
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
     Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
