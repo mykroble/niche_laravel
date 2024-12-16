@@ -70,6 +70,66 @@ class ChannelsTableSeeder extends Seeder
                 'date_last_updated' => now(),
                 'is_public' => true,
             ],
+            [
+                'title' => 'Home & Garden',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Personal Finance',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => false,
+            ],
+            [
+                'title' => 'Parenting Tips',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Automotive',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Photography',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Music & Arts',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Mental Health',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => false,
+            ],
+            [
+                'title' => 'DIY Projects',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'Cryptocurrency',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
+            [
+                'title' => 'History & Culture',
+                'date_created' => now(),
+                'date_last_updated' => now(),
+                'is_public' => true,
+            ],
         ]);
     }
 }

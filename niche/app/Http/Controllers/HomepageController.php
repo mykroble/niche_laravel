@@ -16,7 +16,7 @@ class HomepageController extends Controller{
         $channels = DB::table('user_channels')
             ->join('channel', 'user_channels.channel_id', '=', 'channel.id')
             ->where('user_channels.user_id', Auth::id())
-            ->orderBy('user_channels.date_added', 'desc')
+            ->orderBy('user_channels.id', 'asc')
             ->select('channel.*', 'user_channels.date_added')
             ->get();
 
@@ -27,15 +27,59 @@ class HomepageController extends Controller{
             ->join('user_channels', 'blogs.channel_id', '=', 'user_channels.channel_id')
             ->where('user_channels.user_id', Auth::id())
             ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
-            ->orderBy('blogs.date_created', 'desc');
+            ->orderBy('blogs.date_created', 'asc');
         
         if ($selectedChannelId) {
             $blogsQuery->where('blogs.channel_id', $selectedChannelId);
         }
 
         $blogs = $blogsQuery->limit(100)->get();
+        
+        $bookmarkedBlogIds = DB::table('bookmarks')
+        ->where('user_id', Auth::id())
+        ->pluck('blog_id')
+        ->toArray();
 
-        return view('homepage', compact('blogs', 'channels', 'selectedChannelId'));
+    return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
+    }
+    public function bookmarkBlog(Request $request)
+    {
+        $blogId = $request->input('blog_id');
+        $userId = Auth::id();
+
+        $alreadyBookmarked = DB::table('bookmarks')
+            ->where('user_id', $userId)
+            ->where('blog_id', $blogId)
+            ->exists();
+
+        if (!$alreadyBookmarked) {
+            
+            DB::table('bookmarks')->insert([
+                'user_id' => $userId,
+                'blog_id' => $blogId,
+                'date_added' => now(),
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+    public function showBookmarks(){
+        $bookmarks = DB::table('bookmarks')
+        ->join('blogs', 'bookmarks.blog_id', '=', 'blogs.id')
+        ->join('users', 'blogs.author_user_id', '=', 'users.id')
+        ->select(
+            'blogs.id',
+            'blogs.title',
+            'blogs.content',
+            'blogs.date_created',
+            'users.username',
+            'users.display_name'
+        )
+        ->where('bookmarks.user_id', Auth::id())
+        ->orderBy('bookmarks.date_added', 'desc')
+        ->get();
+
+    return view('bookmarks', ['blogs' => $bookmarks]);
     }
 }
 ?>

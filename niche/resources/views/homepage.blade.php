@@ -10,15 +10,21 @@
 <div class="d-flex bg-dark flex-column align-items-center main-content">
     @if(count($channels) > 0)
     <div class="card">
+    @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('info'))
+            <div class="alert alert-info">{{ session('info') }}</div>
+        @endif
         <div class="channels-section my-4">
             <h4 class="text-white">Channels</h4>
             <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
                 @foreach ($channels as $channel)
-                <a href="{{ route('homepage', ['channel_id' => $channel->id]) }}" 
+                    <a href="{{ route('homepage', ['channel_id' => $channel->id]) }}" 
                     class="col-auto bg-warning channel border p-3 mb-2 rounded mx-2 {{ $selectedChannelId == $channel->id ? 'bg-secondary text-white' : '' }}"
                     style="flex: 0 0 auto;">
-                    <strong>{{ $channel->title }}</strong>
-                </a>
+                        <strong>{{ $channel->title }}</strong>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -40,19 +46,60 @@
                 <h5>{{ $blog->title }}</h5>
                 <div class="preview">{!! $blog->content !!}</div>
                 <div class="d-flex justify-content-start">
-                    <span class="px-3">5 likes</span>
-                    <span>10 Community Members</span>
+                    <span class="px-3 mt-2">5 likes</span>
+                    <span class="px-3 mt-2">10 Community Members</span>
+                    <button 
+                        class="btn mt-2 btn-sm toggle-bookmark {{ in_array($blog->id, $bookmarkedBlogIds) ? 'btn-success' : 'btn-primary' }}" 
+                        data-blog-id="{{ $blog->id }}">
+                        {{ in_array($blog->id, $bookmarkedBlogIds) ? 'Bookmarked' : 'Bookmark' }}
+                    </button>
                 </div>
             </div>
         </div>
         <hr>
         @endforeach
+
     </div>
     @else
     <p class="display-1 no-channel-display">You do not have any channels yet. Find more in <a href="{{route('explore')}}">Explore</a></p>
     @endif
 </div>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const bookmarkButtons = document.querySelectorAll('.toggle-bookmark');
+
+    bookmarkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            event.stopPropagation();
+            const blogId = this.dataset.blogId;
+            const button = this;
+
+            fetch("{{ route('bookmarks.toggle') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ blog_id: blogId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'added') {
+                    button.classList.remove('btn-primary');
+                    button.classList.add('btn-success');
+                    button.textContent = 'Bookmarked';
+                } else if (data.status === 'removed') {
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-primary');
+                    button.textContent = 'Bookmark';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
 
     const blogs = document.querySelectorAll('.blog');
     blogs.forEach(blog => {
@@ -65,4 +112,5 @@
     });
 
 </script>
+
 @endsection
