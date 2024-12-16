@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomepageController;
+
+use App\Http\Controllers\ChatController;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,14 +20,19 @@ Route::get('/', function(){
         return redirect()->route('homepage');
     }
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/homepage', [HomepageController::class, 'loadHomepage'])->name('homepage');
+});
 
-Route::get('/homepage', function(){
-    if(auth::check()){
-        return app(HomepageController::class) -> loadHomepage();
-    } else {
-        return redirect()->route('login')->with('error', 'You must be logged in to access this page.');
-    }
-})->name('homepage');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/message', [ChatController::class, 'index'])->name('message');
+    Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+});
+
+
+
 
 Route::middleware('auth')->prefix('homepage')->group(function(){
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
