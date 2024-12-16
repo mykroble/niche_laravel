@@ -29,7 +29,18 @@ return new class extends Migration
             $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');//added
             $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
         });
-        
+
+        Schema::create('bookmarks', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('blog_id');
+            $table->timestamp('date_added')->useCurrent();
+    
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+            $table->unique(['user_id', 'blog_id']);
+        });
+
         Schema::create('user_channels', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
@@ -71,5 +82,6 @@ return new class extends Migration
         Schema::dropIfExists('comments');
         Schema::dropIfExists('blog_images');
         Schema::dropIfExists('blogs');
+        Schema::dropIfExists('bookmarks');
     }
 };

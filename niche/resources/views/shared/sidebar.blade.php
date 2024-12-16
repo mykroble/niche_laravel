@@ -12,7 +12,7 @@
     <a href="#">Explore</a>
     <a href="#">Notifications</a>
     <a href="{{route('message')}}">Messages</a><!-- not final-->
-    <a href="#">Bookmarks</a>
+    <a href="{{route('bookmarks')}}">Bookmarks</a>
     <a href="#">More</a>
     <form method="GET" action="{{ route('createBlog') }}">
         <button type="submit" class="btn btn-primary w-100 mt-3">Post</button><!-- i remember you saying you want 
