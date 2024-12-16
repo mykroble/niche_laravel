@@ -17,7 +17,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -27,7 +27,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -37,7 +37,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -47,7 +47,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -57,7 +57,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -67,7 +67,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 2, // Gaming
             ],
             [
@@ -77,7 +77,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 2, // Gaming
             ],
             [
@@ -87,7 +87,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 2, // Gaming
             ],
             [
@@ -97,7 +97,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 3, // Health & Fitness
             ],
             [
@@ -107,7 +107,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 3, // Health & Fitness
             ],
             [
@@ -117,7 +117,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 3, // Health & Fitness
             ],
             [
@@ -127,7 +127,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 3, // Health & Fitness
             ],
             [
@@ -137,7 +137,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 4, // Travel Diaries
             ],
             [
@@ -147,7 +147,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 5, // Food & Recipes
             ],
             [
@@ -157,7 +157,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => false,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 6, // Education & Learning
             ],
             [
@@ -167,7 +167,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 7, // Sports Highlights
             ],
             [
@@ -177,7 +177,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 8, // Fashion & Style
             ],
             [
@@ -187,7 +187,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 9, // Science & Technology
             ],
             [
@@ -197,7 +197,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 10, // Entertainment News
             ],
             [
@@ -207,7 +207,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 11, // Business & Finance
             ],
             [
@@ -217,7 +217,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 12, // Lifestyle
             ],
             [
@@ -227,7 +227,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 13, // Cryptocurrency
             ],
             [
@@ -237,7 +237,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 14, // Mental Health
             ],
             [
@@ -247,7 +247,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 15, // Travel
             ],
             [
@@ -257,7 +257,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 16, // Photography
             ],
             [
@@ -267,7 +267,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 17, // Health & Wellness
             ],
             [
@@ -277,7 +277,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 18, // Environment
             ],
             [
@@ -287,7 +287,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 19, // Music
             ],
             [
@@ -297,7 +297,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 4, // Social Media
             ],
             [
@@ -307,7 +307,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 11, // Business & Finance
             ],
             [
@@ -317,7 +317,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 12, // Lifestyle
             ],
             [
@@ -327,7 +327,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 13, // Cryptocurrency
             ],
             [
@@ -337,7 +337,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 14, // Mental Health
             ],
             [
@@ -347,7 +347,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 15, // Travel
             ],
             [
@@ -357,7 +357,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => false,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 16, // Photography
             ],
             [
@@ -367,7 +367,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 17, // Health & Wellness
             ],
             [
@@ -377,7 +377,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 18, // Environment
             ],
             [
@@ -387,7 +387,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 19, // Music
             ],
             [
@@ -397,7 +397,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 1, // Tech News
             ],
             [
@@ -407,7 +407,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 2, // Gaming
             ],
             [
@@ -417,7 +417,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 3, // Health & Fitness
             ],
             [
@@ -427,7 +427,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 4, // Travel Diaries
             ],
             [
@@ -437,7 +437,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 5, // Food & Recipes
             ],
             [
@@ -447,7 +447,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => false,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 6, // Education & Learning
             ],
             [
@@ -457,7 +457,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 7, // Sports Highlights
             ],
             [
@@ -467,7 +467,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 8, // Fashion & Style
             ],
             [
@@ -477,7 +477,7 @@ class BlogsTableSeeder extends Seeder
                 'date_created' => now(),
                 'date_last_updated' => now(),
                 'is_public' => true,
-                'is_available' => true,
+                'is_banned' => false,
                 'channel_id' => 9, // Science & Technology
             ],
        
