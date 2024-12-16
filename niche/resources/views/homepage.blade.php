@@ -19,7 +19,7 @@
             <div class="blog" data-blog-id="{{ $blog->id }}">
                 <p class="mt-2">{{ $blog->username }}</p>
                 <h5>{{ $blog->title }}</h5>
-                <!-- <div class="preview">{!! $blog->content !!}</div> -->
+                <div class="preview">{!! $blog->content !!}</div>
                     <div class="d-flex justify-content-start">
                         <span>503 posts</span>
                         <span>30 active</span>
@@ -27,6 +27,7 @@
                         <span>371 Community Members</span>
                     </div>
             </div>
+            <hr>
         @endforeach
     </div>
 </div>

@@ -22,5 +22,3 @@
         @csrf
         <button type="submit" class="btn btn-light w-100">Sign out</button>
     </form>
-
-    

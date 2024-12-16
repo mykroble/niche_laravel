@@ -13,3 +13,9 @@
     cursor: pointer;
     padding: 1rem;
 }
+.preview{
+    max-height: 10rem;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
