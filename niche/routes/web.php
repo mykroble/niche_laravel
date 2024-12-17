@@ -44,7 +44,7 @@ Route::middleware('admin')->group(function() {
 Route::middleware('auth')->group(function () {
     Route::get('/message', [ChatController::class, 'index'])->name('message');
     Route::post('/message', [ChatController::class, 'store'])->name('message.store');
-    
+    Route::get('/messages/user', [ChatController::class, 'fetchUserMessages'])->name('message.user');
 });
 Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
 

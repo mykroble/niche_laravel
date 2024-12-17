@@ -29,7 +29,14 @@ return new class extends Migration
             $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');//added
             $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
+        Schema::create('user_conversations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('other_user_id');
+            $table->boolean('havetalked')->default(0);  
+            $table->timestamps();
+            $table->unique(['user_id', 'other_user_id']);
+        });
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
