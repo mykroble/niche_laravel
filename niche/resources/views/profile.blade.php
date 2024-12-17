@@ -9,7 +9,7 @@
 @section('title', 'Niche Profile')
 
 @section('content')
-<div class="container mt-4">
+<div class="container">
     <!-- Profile Header -->
     <div class="profile-header border-bottom pb-3">
         
@@ -17,15 +17,16 @@
             <img src="{{ asset('pics/banner.jpg') }}" class="img-fluid banner" alt="Banner">
             <img src="{{ asset('pics/profile.jpg') }}" class="profile-picture rounded-circle border border-white" alt="Profile Picture">
         </div>
-        <div class="mt-4 text-light">
-            <h5 class="mb-1">{{ $userDetails->display_name }}</h5>
-            <p class="text-light">@ {{ $userDetails->username }}</p>
-            <ul class="list-inline text-light">
+        <div class="mt-4 text-light pt-4">
+            <span class="">{{ $userDetails->display_name }}</span>
+            <span class="text-light">@ {{ $userDetails->username }}</span>
+            <ul class="list-inline text-light pt-2">
                 <li class="list-inline-item"><strong>Birthday:</strong> {{ \Carbon\Carbon::parse($userDetails->birthday)->format('d M Y') }}</li>
                 <li class="list-inline-item"><strong>Age:</strong> {{ $userDetails->age ?? 'N/A' }}</li>
                 <li class="list-inline-item"><strong>Gender:</strong> {{ $userDetails->gender }}</li>
             </ul>
-            <button class="btn btn-outline-primary btn-sm" id="edit" onclick="openModal(1)">Edit Profile</button>
+            <button class="btn btn-outline-primary btn-sm" id="edit" data-bs-toggle="modal" data-bs-target="#modal_basic_info">Edit Profile</button>
+
         </div>
     </div>
 
@@ -42,7 +43,7 @@
         @else
             @foreach ($blogs as $blog)
                 <a href="{{ route('viewBlog', ['value' => $blog->id]) }}" class="text-decoration-none text-light">
-                    <div class="blog border p-3 rounded" data-blog-id="{{ $blog->id }}">
+                    <div class="blog p-3 border-top" data-blog-id="{{ $blog->id }}">
                         <p class="mt-2">
                             {{ $blog->display_name }} 
                             <span class="text-secondary">@ {{ $blog->username }}</span>
@@ -69,10 +70,3 @@
 <script src="{{ asset('/js/profilescript.js') }}"></script>
 @endsection
 
-@if(session('success'))
-    <div class="alert alert-success text-center">{{ session('success') }}</div>
-@endif
-
-@if(session('error'))
-    <div class="alert alert-danger text-center">{{ session('error') }}</div>
-@endif

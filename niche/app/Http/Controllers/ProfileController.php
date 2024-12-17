@@ -47,6 +47,7 @@ class ProfileController extends Controller
 
 public function handleProfileForm1(Request $request)
 {
+    // Validate the form data
     $request->validate([
         'display_name' => 'required|string|regex:/^(?=.*\S).+$/',
         'birthday' => 'required|before:now|date',
@@ -55,6 +56,7 @@ public function handleProfileForm1(Request $request)
         'password' => 'nullable|min:8', // Optional field for updating password
     ]);
 
+    // Prepare the data to update
     $data = [
         'display_name' => $request->input('display_name'),
         'birthday' => $request->input('birthday'),
@@ -62,20 +64,24 @@ public function handleProfileForm1(Request $request)
         'email' => $request->input('email'),
     ];
 
+    // If the password is provided, update it
     if ($request->filled('password')) {
         $data['password'] = bcrypt($request->input('password'));
     }
 
+    // Get the authenticated user
     $user = auth()->user();
-    
+
     if ($user) {
-        $user->update($data); // Update user record
+        $user->update($data); // Update the user's profile
     } else {
-        return response()->json(['error' => 'User not authenticated.'], 401);
+        return redirect()->route('login')->withErrors(['error' => 'User not authenticated.']);
     }
 
-    return response()->json(['message' => 'Profile updated successfully.'], 200);
+    // Redirect back to the profile page with a success message
+    return redirect()->route('profile')->with('success', 'Profile updated successfully.');
 }
+
         
 public function destroy($id)
 {
