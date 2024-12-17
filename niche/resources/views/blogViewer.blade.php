@@ -7,7 +7,8 @@
 @section('title', 'Niche')
 
 @section('content')
-    <div class="title sticky-top px-3 py-1 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p class="m-0 p-0">by: @ {{ $blogData->username }}</p></div>
+    <div class="title px-1 pt-3 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p class="m-0 p-0">by: @ {{ $blogData->username }}</p></div>
+    <hr class="border-white">
     <div id="content" class="text-white">{!!$blogData->content !!}</div>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.3/lib/marked.umd.min.js" integrity="sha512-Kt7350NAX8m05J2xcXWI1kAyZQjLm5c/yW0tz5qOpPyKhaidt+p5axcaL3TCaoYfJ11eHOO8nXKtXyGo+z5PMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>

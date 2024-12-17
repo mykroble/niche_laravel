@@ -16,7 +16,7 @@
         <button class="btn btn-secondary btn-sm m-0"><a href="{{ route('admin.toggleBanPost', ['id' => $blogData->id]) }}" class="text-decoration-none text-black w-100 h-100 p-1">Unban Post</a></button>
         @endif
     </div>
-    <div class="title sticky-top px-3 py-1 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p>by: @ {{ $blogData->username }}</p></div>
+    <div class="title px-3 py-1 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p>by: @ {{ $blogData->username }}</p></div>
     <div id="content">{!!$blogData->content !!}</div>
     <script>
 

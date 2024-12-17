@@ -45,6 +45,7 @@ class RegistrationController extends Controller{
             'username' => $request->r_username,
             'email' => $request->r_email,
             'password' => Hash::make($request->r_password),
+            'display_name' => $request->r_username
         ]);
 
         if($user != null && $request->has('proceed')){
