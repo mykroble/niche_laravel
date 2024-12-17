@@ -48,7 +48,7 @@ Route::get('/admin/user/{id}/ban', [AdminController::class, 'toggleBanUser'])->n
 Route::middleware('auth')->group(function () {
     Route::get('/message', [ChatController::class, 'index'])->name('message');
     Route::post('/message', [ChatController::class, 'store'])->name('message.store');
-    
+    Route::get('/messages/user', [ChatController::class, 'fetchUserMessages'])->name('message.user');
 });
 Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
 
@@ -81,7 +81,7 @@ Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.su
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
 
-Route::get('/test', function(){
-    return view('posteditor');
-})->name('testPage');
+// Route::get('/test', function(){
+//     return view('posteditor');
+// })->name('testPage');
 
