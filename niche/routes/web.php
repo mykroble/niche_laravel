@@ -50,6 +50,7 @@ Route::middleware('auth')->prefix('blog')->group(function(){                // h
     Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
     Route::post('/save', [BlogController::class, 'saveBlogSubmit'])->name('saveBlog.submit');
+    Route::post('/blogs/search', [BlogController::class, 'ajaxSearch'])->name('blogs.search');
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 
