@@ -81,7 +81,7 @@ Route::post('/logout',[loginController::class, 'handleLogout'])->name('logout.su
 Route::get('/registration',[RegistrationController::class, 'showRegistrationPage'])->name('registration');
 Route::post('/registration', [RegistrationController::class, 'handleRegistrationSubmit'])->name('registrationForm.handle');
 
-Route::get('/test', function(){
-    return view('posteditor');
-})->name('testPage');
+// Route::get('/test', function(){
+//     return view('posteditor');
+// })->name('testPage');
 
