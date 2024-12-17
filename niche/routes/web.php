@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ExploreController;
+use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ChatController;
 
@@ -21,8 +23,10 @@ Route::get('/', function(){
         return redirect()->route('homepage');
     }
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/homepage', [HomepageController::class, 'loadHomepage'])->name('homepage');
+    Route::get('/explore', [ExploreController::class, 'loadExplore'])->name('explore');
+    Route::post('/explore', [ExploreController::class, 'joinChannel'])->name('channel.join');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/bookmark', [HomepageController::class, 'bookmarkBlog'])->name('bookmark.blog');
@@ -32,19 +36,30 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookmarks/toggle', [BookmarksController::class, 'toggleBookmark'])->name('bookmarks.toggle');
 });
 
+Route::middleware('admin')->group(function() {
+    Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/message', [ChatController::class, 'index'])->name('message');
     Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+    
 });
+Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
 
 
 
 
-Route::middleware('auth')->prefix('homepage')->group(function(){
+Route::middleware('auth')->prefix('homepage')->group(function() {
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+    Route::delete('/post/{id}', [ProfileController::class, 'destroy'])->name('posts.delete');
+
+
 });
+
+
 
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
     Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
@@ -53,6 +68,7 @@ Route::middleware('auth')->prefix('blog')->group(function(){                // h
     Route::post('/blogs/search', [BlogController::class, 'ajaxSearch'])->name('blogs.search');
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
+
 
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');
