@@ -41,11 +41,14 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->prefix('homepage')->group(function() {
-
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
-    Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+    Route::delete('/post/{id}', [ProfileController::class, 'destroy'])->name('posts.delete');
+    
+    
+
 });
+
 
 
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
