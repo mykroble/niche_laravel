@@ -1,35 +1,110 @@
-.myBody{
-    color:white;
-    width:100%;
-    height:auto;
-    /* background-color: red; */
-    margin:0;
-    padding:0;
+.myBody {
+  color: white;
+  width: 80%;
+  height: auto;
+  margin: 20px auto;
+  padding: 0;
 }
+
 .section1{
-    width:100%;
+  width: 100%;
 }
+
 /* 'MODAL_BASIC_INFO' */
 #modal_basic_info{
-    display: none;
-    position: fixed;
-    z-index:1;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100%;
-    padding: auto;
-    margin: auto;
-    background : rgba(0,0,0,0.5);
+  display: none;
+  position: fixed;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100%;
+  padding: auto;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.5);
 }
-.basic_info_form_bg{
-    height:auto;
-    width: 30em;
-    padding: 20px;
-    border-radius: 5%;
-    background-color: aliceblue;
+
+.basic_info_form_bg {
+  height: auto;
+  width: 30em;
+  padding: 20px;
+  border-radius: 5%;
+  background-color: aliceblue;
 }
-#modal_basic_info label{
-    font-size: smaller;
+
+#modal_basic_info label {
+  font-size: smaller;
 }
 /* END 'MODAL_BASIC_INFO' */
+
+/* CSS for buttons */
+
+/* Basic styles for the buttons */
+.buttonsection {
+  display: flex;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: relative;
+
+  font-size: 16px;
+  width: 50%;
+  color: #333; /* Ensure the text is visible on deactivated buttons */
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Line at the end of buttons */
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background-color: blue;
+  transition: all 0.3s ease;
+}
+
+/* Add active class styles to handle the underline transition when toggled */
+button.active + .underline {
+  left: 50%; /* Slide the underline to the second button */
+}
+
+button.active {
+  font-weight: bold;
+  color: blue;
+}
+
+/* Ensure the deactivated button text is visible */
+button:not(.active) {
+  color: #333; /* Use a dark color for inactive buttons */
+  opacity: 0.7; /* Optionally, reduce opacity to indicate deactivated state */
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background-color: blue;
+  transition: all 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}

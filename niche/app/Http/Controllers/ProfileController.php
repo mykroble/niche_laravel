@@ -4,44 +4,95 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller{
+class ProfileController extends Controller
+{
+    public function showProfPage(Request $request)
+{
+    $user = auth()->user();
 
-    public function showProfPage(){
-        return view('profile');
+    if (!$user) {
+        return redirect()->route('login')->withErrors(['error' => 'User not authenticated.']);
     }
 
-    public function handleProfileForm1(Request $request){
-        $request->validate(
-            [
-                'disp_name' => 'required|string|regex:/^(?=.*\S).+$/',
-                'birthday' => 'required|before:now|date',
-                'gender' => 'required',
-                'country' => 'required'
-            ],
-            [
-                'disp_name.required' => '',
-                'disp_name.string' => '',
-                'disp_name.regex' => '',
-                'birthday.required' => '',
-                'birthday.before' => '',
-                'birthday.date' => '',
-                'gender.required' => '',
-                'country.required' => '',
-            ]
-        );
-        $data = [
-            '' => '',
-            '' => '',
-            '' => ''
-        ];
+    // Retrieve posts for the authenticated user
+    $blogs = DB::table('blogs')
+        ->join('users', 'blogs.author_user_id', '=', 'users.id')
+        ->select('blogs.*', 'users.display_name', 'users.username')
+        ->where('blogs.author_user_id', $user->id)
+        ->orderBy('blogs.date_created', 'desc')
+        ->get();
 
-        $user = User::create($data);
+    // Retrieve user profile data
+    $userDetails = DB::table('users')
+        ->select('username', 'email', 'display_name', 'birthday', 'gender')
+        ->where('id', $user->id)
+        ->first();
 
-        //do checking and redirect and stuff, too tired ill sleep. ITS 2 AM AHHHH
+    // Calculate age if the birthday exists
+    if ($userDetails && $userDetails->birthday) {
+        $birthday = new \Carbon\Carbon($userDetails->birthday);
+        $userDetails->age = $birthday->age;
+    } else {
+        $userDetails->age = null;
     }
+
+    return view('profile', [
+        'blogs' => $blogs, 
+        'userDetails' => $userDetails
+    ]);
 }
 
+public function handleProfileForm1(Request $request)
+{
+    $request->validate([
+        'display_name' => 'required|string|regex:/^(?=.*\S).+$/',
+        'birthday' => 'required|before:now|date',
+        'gender' => 'required',
+        'email' => 'required|email|unique:users,email,' . auth()->id(),
+        'password' => 'nullable|min:8', // Optional field for updating password
+    ]);
 
+    $data = [
+        'display_name' => $request->input('display_name'),
+        'birthday' => $request->input('birthday'),
+        'gender' => $request->input('gender'),
+        'email' => $request->input('email'),
+    ];
 
-?>
+    if ($request->filled('password')) {
+        $data['password'] = bcrypt($request->input('password'));
+    }
+
+    $user = auth()->user();
+    
+    if ($user) {
+        $user->update($data); // Update user record
+    } else {
+        return response()->json(['error' => 'User not authenticated.'], 401);
+    }
+
+    return response()->json(['message' => 'Profile updated successfully.'], 200);
+}
+        
+public function destroy($id)
+{
+    $user = Auth::user();
+
+    // Find the post by ID
+    $post = Blog::find($id);
+
+    // Check if the post exists and if the authenticated user is the author
+    if (!$post || $post->author_user_id !== $user->id) {
+        return redirect()->route('profile')->with('error', 'You can only delete your own posts.');
+    }
+
+    // Delete the post
+    $post->delete();
+
+    // Redirect back to the profile page with a success message
+    return redirect()->route('profile')->with('success', 'Post deleted successfully.');
+}
+}
