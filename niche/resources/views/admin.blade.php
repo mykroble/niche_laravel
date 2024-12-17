@@ -14,7 +14,13 @@
     </div>
     @endif
     <div class="table-wrapper">
-        <h1 class="text-white">User List</h1>
+        <div class="d-flex justify-content-between">
+            <h1 class="text-white">User List</h1>
+            <form method="POST" action="{{ route('logout.submit') }}">
+                @csrf
+                <button type="submit" class="btn btn-light w-100">Sign out</button>
+            </form>
+        </div>
 
         <table border="1" class="table table-dark w-100">
             <thead class="text-white">

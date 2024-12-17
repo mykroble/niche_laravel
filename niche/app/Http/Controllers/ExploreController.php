@@ -25,7 +25,15 @@ class ExploreController extends Controller{
 
         $blogs = $blogsQuery->limit(100)->get();
 
-        return view('explore', compact('blogs'));
+        $blogIds = $blogs->pluck('id');
+
+        $images = DB::table('blog_images')
+            ->whereIn('blog_id', $blogIds)
+            ->select('*')
+            ->get()
+            ->groupBy('blog_id');
+
+        return view('explore', compact('blogs', 'images'));
     }
 
     public function joinChannel(Request $request){

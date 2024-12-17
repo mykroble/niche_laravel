@@ -29,19 +29,29 @@ class HomepageController extends Controller{
             ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'desc');
         
+        $blogs = $blogsQuery->limit(100)->get();
+
+        $blogIds = $blogs->pluck('id');
+
+        $images = DB::table('blog_images')
+            ->whereIn('blog_id', $blogIds)
+            ->select('*')
+            ->get()
+            ->groupBy('blog_id');
+
         if ($selectedChannelId) {
             $blogsQuery->where('blogs.channel_id', $selectedChannelId);
         }
 
-        $blogs = $blogsQuery->limit(100)->get();
         
         $bookmarkedBlogIds = DB::table('bookmarks')
         ->where('user_id', Auth::id())
         ->pluck('blog_id')
         ->toArray();
 
-    return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
+    return view('homepage', compact('blogs', 'images', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
     }
+
     public function bookmarkBlog(Request $request)
     {
         $blogId = $request->input('blog_id');
@@ -78,9 +88,18 @@ class HomepageController extends Controller{
         )
         ->where('bookmarks.user_id', Auth::id())
         ->orderBy('bookmarks.date_added', 'desc')
+        ->limit(100)
         ->get();
 
-    return view('bookmarks', ['blogs' => $bookmarks]);
+        $blogIds = $bookmarks->pluck('id');
+
+        $images = DB::table('blog_images')
+            ->whereIn('blog_id', $blogIds)
+            ->select('*')
+            ->get()
+            ->groupBy('blog_id');
+
+    return view('bookmarks', ['blogs' => $bookmarks], compact('images'));
     }
 }
 ?>

@@ -72,7 +72,12 @@ class BlogController extends Controller{
     }
 
     public function viewBlog($blogId){
-        $blogData = DB::table('blogs')->where('id', $blogId)->first();
+        $blogData = DB::table('blogs')
+            ->join('users', 'users.id', '=', 'blogs.author_user_id')
+            ->select('blogs.*', 'users.username AS username')
+            ->where('blogs.id', $blogId)
+            ->first();
+
         $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
         return view('blogViewer', compact('blogData', 'blogImages'));
     }
