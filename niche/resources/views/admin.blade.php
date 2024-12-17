@@ -14,12 +14,19 @@
     </div>
     @endif
     <div class="table-wrapper">
-        <h1 class="text-white">User List</h1>
+        <div class="d-flex justify-content-between">
+            <h1 class="text-white">User List</h1>
+            <form method="POST" action="{{ route('logout.submit') }}">
+                @csrf
+                <button type="submit" class="btn btn-light w-100">Sign out</button>
+            </form>
+        </div>
 
         <table border="1" class="table table-dark w-100">
             <thead class="text-white">
                 <tr>
                     <th>ID</th>
+                    <th>Icon</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Display Name</th>
@@ -34,6 +41,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
+                        <td><div class="image-container-user"><img src="{{ asset($user->icon_file_path) }}" class="user-icon"></div></td>
                         <td>@ {{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->display_name }}</td>

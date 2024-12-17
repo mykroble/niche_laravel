@@ -11,7 +11,7 @@
         <ul class="list-group chat-list" id="chat-users">
           @foreach ($users as $user)
             <li class="list-group-item d-flex align-items-center user-item" data-user-id="{{ $user->id }}">
-              <img src="{{ asset('images/user1.jpg') }}" alt="{{ $user->display_name }}" class="rounded-circle me-3" width="40" height="40">
+              <img src="{{ asset($user->icon_file_path) }}" alt="{{ $user->display_name }}" class="rounded-circle me-3" width="40" height="40">
               <div>
                 <strong>{{ $user->display_name }}</strong>
                 <p class="mb-0 text-muted" style="font-size: 0.85rem;" id="last-message-{{ $user->id }}">
@@ -32,7 +32,7 @@
       <div class="col-md-8 col-sm-12 chat-section d-flex flex-column">
         <div class="chat-header p-3 border-bottom d-flex align-items-center">
           @if ($currentUser)
-            <img src="{{ asset('pics/pottery.jpeg') }}" alt="{{ $currentUser->display_name }}" class="rounded-circle me-3" width="40" height="40">
+            <img src="{{ asset($currentUser->icon_file_path) }}" alt="{{ $currentUser->display_name }}" class="rounded-circle me-3" width="40" height="40">
             <h5 class="mb-0">{{ $currentUser->display_name }}</h5>
           @endif
         </div>

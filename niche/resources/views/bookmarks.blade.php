@@ -1,4 +1,7 @@
 @extends('layouts.layout')
+@section('loadAssets')
+<link rel="stylesheet" href="{{asset('css/homepage.css')}}" type="text/css">
+@endsection
 
 @section('title', 'My Bookmarks')
 
@@ -8,20 +11,25 @@
     
     @foreach ($blogs as $blog)
         <div class="blog border p-3 mb-2 rounded" data-blog-id="{{ $blog->id }}">
-            <p class="mt-2">
-                {{ $blog->display_name }} 
-                <span class="text-secondary">@ {{ $blog->username }}</span>
-            </p>
+            <div class="d-flex mb-3">
+                    <div class="image-container-user">
+                        <img src="{{ asset($blog->icon_file_path) }}" class="user-icon">
+                    </div>
+                    <p class="my-auto">
+                        {{ $blog->display_name }}
+                        <span class="text-secondary">@ {{ $blog->username }}</span>
+                    </p>
+                </div>
             <h5>{{ $blog->title }}</h5>
-            <div class="preview">{!! $blog->content !!}</div>
+            <div class="preview" data-blogId="{{ $blog->id }}">{!! $blog->content !!}</div>
             <div class="d-flex justify-content-start">
                 <span class="px-3">5 likes</span>
                 <span>10 Community Members</span>
             </div>
-            <button class="btn btn-sm btn-primary bookmark-btn" data-blog-id="{{ $blog->id }}">
-                Remove Bookmark
-            </button>
         </div>
+        <button class="btn btn-sm btn-primary bookmark-btn" data-blog-id="{{ $blog->id }}">
+            Remove Bookmark
+        </button>
         <hr>
     @endforeach
 </div>
@@ -37,5 +45,25 @@
             window.location.href = url;
         })
     });
+
+    const blogImages = @json($images);
+    Object.entries(blogImages).forEach(([blogId, images]) => {
+        console.log('aaa');
+        const preview = document.querySelector(`.preview[data-blogId="${blogId}"]`);
+        const imageContainers = preview.querySelectorAll('.image-container-uploaded');
+
+        imageContainers.forEach(imageContainer => {
+            let imageId = imageContainer.dataset.imageId;
+            let uploadedImg = imageContainer.querySelector('.uploaded-image');
+            if(uploadedImg){
+                let imageRow = images.find(image => image.image_id === parseInt(imageId));
+                if(imageRow){
+                    let filePath = imageRow.file_path;
+                    uploadedImg.src = `{{ asset('${filePath}') }}`;
+                }
+            }
+        });
+    });
+
 </script>
 @endsection

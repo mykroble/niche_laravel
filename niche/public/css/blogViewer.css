@@ -64,3 +64,7 @@
     max-height: 100%;
     margin:0.5rem;
 }
+.title{
+    height:fit-content;
+    background-color: rgba(0,0,0,0.2);
+}
