@@ -75,6 +75,7 @@ class BlogController extends Controller{
         $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
         return view('blogViewer', compact('blogData', 'blogImages'));
     }
+
     public function ajaxSearch(Request $request)
     {
         $query = $request->input('query');

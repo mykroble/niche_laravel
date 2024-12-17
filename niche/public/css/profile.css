@@ -1,110 +1,56 @@
-.myBody {
-  color: white;
-  width: 80%;
-  height: auto;
-  margin: 20px auto;
-  padding: 0;
+/* Profile Banner */
+.banner {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0.5rem;
 }
 
-.section1{
-  width: 100%;
+/* Profile Picture */
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    object-fit: cover;
 }
 
-/* 'MODAL_BASIC_INFO' */
-#modal_basic_info{
-  display: none;
-  position: fixed;
-  z-index: 1;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  min-width: 100%;
-  padding: auto;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.5);
+/* Profile Header */
+.profile-header {
+    position: relative;
+    padding-top: 70px;
 }
 
-.basic_info_form_bg {
-  height: auto;
-  width: 30em;
-  padding: 20px;
-  border-radius: 5%;
-  background-color: aliceblue;
+/* Tabs */
+.profile-tabs button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    background: none;
 }
 
-#modal_basic_info label {
-  font-size: smaller;
-}
-/* END 'MODAL_BASIC_INFO' */
-
-/* CSS for buttons */
-
-/* Basic styles for the buttons */
-.buttonsection {
-  display: flex;
-  position: relative;
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid #ccc;
+/* Posts Section */
+.post {
+    padding: 10px 0;
 }
 
-button {
-  background-color: transparent;
-  border: 1px solid #ccc;
-  padding: 10px 20px;
-  cursor: pointer;
-  position: relative;
-
-  font-size: 16px;
-  width: 50%;
-  color: #333; /* Ensure the text is visible on deactivated buttons */
+.post .avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
 }
 
-button:focus {
-  outline: none;
+.post h6 {
+    font-size: 14px;
+    margin-bottom: 0;
 }
 
-/* Line at the end of buttons */
-.underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 3px;
-  background-color: blue;
-  transition: all 0.3s ease;
+.post p {
+    font-size: 14px;
 }
 
-/* Add active class styles to handle the underline transition when toggled */
-button.active + .underline {
-  left: 50%; /* Slide the underline to the second button */
-}
-
-button.active {
-  font-weight: bold;
-  color: blue;
-}
-
-/* Ensure the deactivated button text is visible */
-button:not(.active) {
-  color: #333; /* Use a dark color for inactive buttons */
-  opacity: 0.7; /* Optionally, reduce opacity to indicate deactivated state */
-}
-
-.underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 3px;
-  background-color: blue;
-  transition: all 0.3s ease;
-}
-
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: block;
+/* Small Icons */
+.text-muted i {
+    margin-right: 5px;
 }
