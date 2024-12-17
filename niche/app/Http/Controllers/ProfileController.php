@@ -46,37 +46,49 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function handleProfileForm1(Request $request)
-    {
-        $request->validate([
-            'display_name' => 'required|string|regex:/^(?=.*\S).+$/',
-            'birthday' => 'required|before:now|date',
-            'gender' => 'required',
-            'email' => 'required|email|unique:users,email,' . auth()->id(),
-            'password' => 'nullable|min:8', // Optional field for updating password
-        ]);
 
-        $data = [
-            'display_name' => $request->input('display_name'),
-            'birthday' => $request->input('birthday'),
-            'gender' => $request->input('gender'),
-            'email' => $request->input('email'),
-        ];
+    return view('profile', [
+        'blogs' => $blogs, 
+        'userDetails' => $userDetails
+    ]);
+}
 
-        if ($request->filled('password')) {
-            $data['password'] = bcrypt($request->input('password'));
-        }
+public function handleProfileForm1(Request $request)
+{
+    // Validate the form data
+    $request->validate([
+        'display_name' => 'required|string|regex:/^(?=.*\S).+$/',
+        'birthday' => 'required|before:now|date',
+        'gender' => 'required',
+        'email' => 'required|email|unique:users,email,' . auth()->id(),
+        'password' => 'nullable|min:8', // Optional field for updating password
+    ]);
 
-        $user = auth()->user();
-        
-        if ($user) {
-            $user->update($data); // Update user record
-        } else {
-            return response()->json(['error' => 'User not authenticated.'], 401);
-        }
+    // Prepare the data to update
+    $data = [
+        'display_name' => $request->input('display_name'),
+        'birthday' => $request->input('birthday'),
+        'gender' => $request->input('gender'),
+        'email' => $request->input('email'),
+    ];
 
-        return response()->json(['message' => 'Profile updated successfully.'], 200);
+    // If the password is provided, update it
+    if ($request->filled('password')) {
+        $data['password'] = bcrypt($request->input('password'));
     }
+
+    // Get the authenticated user
+    $user = auth()->user();
+
+    if ($user) {
+        $user->update($data); // Update the user's profile
+    } else {
+        return redirect()->route('login')->withErrors(['error' => 'User not authenticated.']);
+    }
+
+    // Redirect back to the profile page with a success message
+    return redirect()->route('profile')->with('success', 'Profile updated successfully.');
+}
         
     public function destroy($id)
     {
