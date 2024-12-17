@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime('date_created');
             $table->dateTime('date_last_updated');
             $table->boolean('is_public')->default(0);
-            $table->boolean('is_available')->default(0);
+            $table->boolean('is_banned')->default(0);
             $table->unsignedBigInteger('channel_id');
             $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');//added
             $table->foreign('author_user_id')->references('id')->on('users')->onDelete('cascade');
@@ -46,6 +46,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('channel_id');
             $table->dateTime('date_added');
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('channel_id')->references('id')->on('channel')->onDelete('cascade');
         });
@@ -77,11 +78,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_channels');
-        Schema::dropIfExists('channel');
         Schema::dropIfExists('comments');
         Schema::dropIfExists('blog_images');
-        Schema::dropIfExists('blogs');
         Schema::dropIfExists('bookmarks');
+        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('user_channels');
+        Schema::dropIfExists('channel');
     }
 };

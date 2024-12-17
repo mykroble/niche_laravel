@@ -1,31 +1,18 @@
-
-<div class="messages-section col-4  pr-2">
+<div class="messages-section col-4 pr-2">
     <div class="search-draft p-3 rounded border">
-        <h5 class="fw-bold mb-3">Suggested</h5>
+        <h5 class="fw-bold mb-3">Search Blogs</h5>
+        <form id="searchForm" class="message-input border-top mt-2 pt-2 d-flex align-items-center">
+            <input type="text" id="searchQuery" class="form-control me-2" placeholder="Search by blog title..." />
+            <button type="submit" class="btn btn-warning ">Search</button>
+        </form>
+        <div id="searchResults" class="mt-3  rounded p-2" style="min-height: 0px; max-height: 270px; overflow-y: auto;">
+            
+        </div>
 
-        <div class="trending mb-3">
-            <p class="small text-light mb-1">because you are in Gardening</p>
-            <p class="fw-bold mb-1">seed growing</p>
-            <p class="small">120 members</p>
-        </div>
-        <div class="trending mb-3">
-            <p class="small text-light mb-1">Trending</p>
-            <p class="fw-bold mb-1">Vinyl Collection</p>
-            <p class="small">1000 visits</p>
-        </div>
-        <div class="trending mb-3">
-            <p class="small text-light mb-1">Popular in Cebu</p>
-            <p class="fw-bold mb-1">Drake</p>
-        </div>
-        <div class="trending mb-3">
-            <p class="small text-light mb-1">Trending</p>
-            <p class="fw-bold mb-1">Wicked</p>
-            <p class="small ">236K posts</p>
-        </div>
-        <a href="#" class="text-primary text-decoration-none">Show more</a>
+
+        <!-- live chat -->
     </div>
-    <!-- start of live chat -->
-    <div class="messages rounded border p-3">
+    <div class="messages rounded border p-3 mt-3">
         <div class="text-warning px-2 py-1 mb-2">
             <strong>Live Chat</strong>
         </div>
@@ -65,3 +52,46 @@
         </div>
     </div>
 </div>
+<script>
+document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    let query = document.getElementById('searchQuery').value;
+    let searchResultsContainer = document.getElementById('searchResults');
+    if (query != ""){
+        fetch("{{ route('blogs.search') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({ query: query })
+        })
+        .then(response => response.json())
+        .then(data => {
+            searchResultsContainer.innerHTML = "";
+
+            if (data.blogs.length > 0) {
+                data.blogs.forEach(blog => {
+                    let blogUrl = "{{ route('viewBlog', ['value' => ':id']) }}".replace(':id', blog.id);
+                    searchResultsContainer.innerHTML += `
+                        <a href="${blogUrl}" class="text-decoration-none text-light">
+                            <div class="blog p-2 border mb-2 rounded">
+                                <h6 class="mb-0">${blog.title}</h6>
+                                <p class="text-secondary mb-0">By @${blog.username}</p>
+                            </div>
+                        </a>
+                    `;
+                });
+            } else {
+                searchResultsContainer.innerHTML = `<p class="text-light">No results found.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            searchResultsContainer.innerHTML = `<p class="text-danger">Something went wrong. Please try again.</p>`;
+        });
+    }
+    
+});
+</script>

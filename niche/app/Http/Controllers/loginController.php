@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class loginController extends Controller{
 
@@ -31,7 +32,16 @@ class loginController extends Controller{
 
         $arr = $request->only('email', 'password');
 
+        
         if(Auth::attempt($arr, $request->has('remember'))){
+            $userId = DB::table('users')
+                ->select('is_admin')
+                ->where('email', '=', $arr['email'])
+                ->first();
+
+            if($userId === 1){
+                return redirect()->route('adminPage');
+            }
             return redirect()->route('homepage');
         } else {
             return redirect()->back()
