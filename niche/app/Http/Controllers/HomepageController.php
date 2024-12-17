@@ -27,7 +27,7 @@ class HomepageController extends Controller{
             ->join('user_channels', 'blogs.channel_id', '=', 'user_channels.channel_id')
             ->where('user_channels.user_id', Auth::id())
             ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
-            ->orderBy('blogs.date_created', 'asc');
+            ->orderBy('blogs.date_created', 'desc');
         
         if ($selectedChannelId) {
             $blogsQuery->where('blogs.channel_id', $selectedChannelId);

@@ -14,12 +14,9 @@ class BlogController extends Controller{
         $request->validate([
             'title' => 'required|string|max:250',
             'content' => 'required|string',
+            'channel' => 'required',
+            'visibility' => 'required',
         ]);
-
-        // $config = HTMLPurifier_Config::createDefault();
-        // $config->set('HTML.Allowed', 'p,b,i,u,a[href],img[src|alt|width|height|data-*],span[style],div[style]');
-        // $purifier = new HTMLPurifier($config);
-        // $cleanContent = $purifier->purify($request['content']);
 
         $timestamp = now();
         try {
@@ -29,8 +26,8 @@ class BlogController extends Controller{
                 'content' => $request['content'],
                 'date_created' => $timestamp,
                 'date_last_updated' => $timestamp,
-                'is_public' => '1',
-                'is_available' => '1',
+                'is_public' => $request['visibility'],
+                'channel_id' => $request['channel'],
             ]);
         } catch (QueryException) {
             return back()->with('error', 'Failed to save blog');
@@ -49,25 +46,29 @@ class BlogController extends Controller{
                 $blogImageData[] = ['blog_id' => $blogId, 'file_path' => $path, 'image_id' => $imageId];
             }
         }
+
+        $insertCheck = true;
         if(!empty($blogImageData)){
-            $insertCheck = false;
             $insertCheck = DB::table('blog_images')->insert($blogImageData);
-            if($insertCheck){
-                return redirect()->route('homepage');
-            } else {
-                return back()->with('error', 'Failed to upload images');
-            }
+        }
+
+        if($insertCheck){
+            return redirect()->route('viewBlog', ['value' => $blogId]);
+        } else {
+            return back()->with('error', 'Failed to upload images');
         }
     }
 
     public function createBlog(){
-        
-        // $userInput = '# header';
-        // $converter = new CommonMarkConverter();
-        // $htmlContent = $converter->convertToHtml($userInput);
 
-        // return view('posteditor')->with('htmlContent',$htmlContent);
-        return view('posteditor');
+        $channels = DB::table('user_channels')
+            ->join('channel', 'user_channels.channel_id', '=', 'channel.id')
+            ->where('user_channels.user_id', Auth::id())
+            ->orderBy('user_channels.id', 'asc')
+            ->select('channel.*')
+            ->get();
+        
+        return view('posteditor')->with('channels', $channels);
     }
 
     public function viewBlog($blogId){
