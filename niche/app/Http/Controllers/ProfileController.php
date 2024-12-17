@@ -47,12 +47,6 @@ class ProfileController extends Controller
     }
 
 
-    return view('profile', [
-        'blogs' => $blogs, 
-        'userDetails' => $userDetails
-    ]);
-}
-
 public function handleProfileForm1(Request $request)
 {
     // Validate the form data
