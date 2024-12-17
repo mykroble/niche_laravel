@@ -14,7 +14,7 @@
             <div class="h-100 w-100 d-flex justify-content-between channel">
                 <div class="d-flex">
                     <div class="image-container">
-                        <img src="{{ asset('pics/pet-grooming.png') }}" class="channel-icon">
+                        <img src="{{ asset('pics/channel-icon.svg') }}" class="channel-icon">
                     </div>
                     <p class="m-auto p-1">{{ $blog->channelTitle }}</p>
                 </div>
