@@ -20,6 +20,7 @@
             <thead class="text-white">
                 <tr>
                     <th>ID</th>
+                    <th>Icon</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Display Name</th>
@@ -34,6 +35,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
+                        <td><div class="image-container-user"><img src="{{ asset($user->icon_file_path) }}" class="user-icon"></div></td>
                         <td>@ {{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->display_name }}</td>

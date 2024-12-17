@@ -8,8 +8,8 @@
     <link href="{{ asset('css/blogViewer.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-dark m-0 p-0 text-white">
-    <div class="d-flex justify-content-between p-2">
-        <button class="btn btn-light btn-sm"><a href="{{ route('admin.userDetail', ['id' => $blogData->author_user_id]) }}" class="text-decoration-none text-black">Go back</a></button>
+    <div class="d-flex justify-content-between p-2 w-auto mx-2">
+        <button class="btn btn-light btn-sm p-1"><a href="{{ route('admin.userDetail', ['id' => $blogData->author_user_id]) }}" class="text-decoration-none text-black w-100 h-100 p-2">Go back</a></button>
         @if($blogData->is_banned === 0)
         <button class="btn btn-danger btn-sm m-0"><a href="{{ route('admin.toggleBanPost', ['id' => $blogData->id]) }}" class="text-decoration-none text-black w-100 h-100 p-1">Ban Post</a></button>
         @else

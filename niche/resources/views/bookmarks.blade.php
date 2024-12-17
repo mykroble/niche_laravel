@@ -1,4 +1,7 @@
 @extends('layouts.layout')
+@section('loadAssets')
+<link rel="stylesheet" href="{{asset('css/homepage.css')}}" type="text/css">
+@endsection
 
 @section('title', 'My Bookmarks')
 
@@ -8,10 +11,15 @@
     
     @foreach ($blogs as $blog)
         <div class="blog border p-3 mb-2 rounded" data-blog-id="{{ $blog->id }}">
-            <p class="mt-2">
-                {{ $blog->display_name }} 
-                <span class="text-secondary">@ {{ $blog->username }}</span>
-            </p>
+            <div class="d-flex mb-3">
+                    <div class="image-container-user">
+                        <img src="{{ asset($blog->icon_file_path) }}" class="user-icon">
+                    </div>
+                    <p class="my-auto">
+                        {{ $blog->display_name }}
+                        <span class="text-secondary">@ {{ $blog->username }}</span>
+                    </p>
+                </div>
             <h5>{{ $blog->title }}</h5>
             <div class="preview">{!! $blog->content !!}</div>
             <div class="d-flex justify-content-start">

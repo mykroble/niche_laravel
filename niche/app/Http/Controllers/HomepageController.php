@@ -26,7 +26,7 @@ class HomepageController extends Controller{
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
             ->join('user_channels', 'blogs.channel_id', '=', 'user_channels.channel_id')
             ->where('user_channels.user_id', Auth::id())
-            ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
+            ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'desc');
         
         if ($selectedChannelId) {
@@ -73,7 +73,8 @@ class HomepageController extends Controller{
             'blogs.content',
             'blogs.date_created',
             'users.username',
-            'users.display_name'
+            'users.display_name',
+            'users.icon_file_path'
         )
         ->where('bookmarks.user_id', Auth::id())
         ->orderBy('bookmarks.date_added', 'desc')

@@ -30,7 +30,7 @@
                 let imageRow = blogImages.find(image => image.image_id === parseInt(imageId));
                 if(imageRow){
                     let filePath = imageRow.file_path;
-                    uploadedImg.src = `{{ asset('storage/${filePath}') }}`;
+                    uploadedImg.src = `{{ asset('${filePath}') }}`;
                 }
             }
         });

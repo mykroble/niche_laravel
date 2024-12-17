@@ -19,7 +19,7 @@ class ExploreController extends Controller{
             $join->on('user_channels.channel_id', '=', 'channel.id')
                 ->where('user_channels.user_id', '=', $userId);
         })
-        ->select('blogs.*', 'users.display_name', 'users.username', 'channel.id AS channelId', 'channel.title AS channelTitle')
+        ->select('blogs.*', 'users.display_name', 'users.username', 'channel.id AS channelId', 'channel.title AS channelTitle', 'users.icon_file_path')
         ->whereNull('user_channels.channel_id')
         ->orderBy('blogs.date_created', 'desc');
 

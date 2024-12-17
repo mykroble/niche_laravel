@@ -25,10 +25,15 @@
                 </form>
             </div>
             <div class="blog" data-blog-id="{{ $blog->id }}">
-                <p class="mt-2">
-                    {{ $blog->display_name }}
-                    <span class="text-secondary">@ {{ $blog->username }}</span>
-                </p>
+                <div class="d-flex mb-3">
+                    <div class="image-container-user">
+                        <img src="{{ asset($blog->icon_file_path) }}" class="user-icon">
+                    </div>
+                    <p class="my-auto">
+                        {{ $blog->display_name }}
+                        <span class="text-secondary">@ {{ $blog->username }}</span>
+                    </p>
+                </div>
                 <h5>{{ $blog->title }}</h5>
                 <div class="preview">{!! $blog->content !!}</div>
                 <div class="d-flex justify-content-start">

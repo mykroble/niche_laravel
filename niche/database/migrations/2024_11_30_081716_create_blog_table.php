@@ -91,5 +91,6 @@ return new class extends Migration
         Schema::dropIfExists('blogs');
         Schema::dropIfExists('user_channels');
         Schema::dropIfExists('channel');
+        Schema::dropIfExists('user_conversations');
     }
 };

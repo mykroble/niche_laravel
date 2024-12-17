@@ -3,7 +3,7 @@
 <div class="profile-section">
         <!-- the clickable area is too wide we need to make it smaller-->
         <a href="{{ route('profile') }}" class="text-decoration-none text-white">
-            <img src="{{ asset('pics/sampleIcon.jpg') }}" alt="Profile Picture" class="rounded-circle mb-2">
+            <img src="{{ asset(auth()->user()->icon_file_path) }}" alt="Profile Picture" class="rounded-circle mb-2">
             <h5 class="mb-1">{{auth()->User()->display_name}}</h5> <!-- retrieve from table user-->
         </a>
         <p class="text-white small">{{auth()->User()->username}}</p><!-- retrieve from table user-->
