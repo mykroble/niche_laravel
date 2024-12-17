@@ -76,6 +76,19 @@ class BlogController extends Controller{
         return view('blogViewer', compact('blogData', 'blogImages'));
     }
 
+    public function ajaxSearch(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $blogs = DB::table('blogs')
+            ->join('users', 'blogs.author_user_id', '=', 'users.id')
+            ->select('blogs.id', 'blogs.title', 'blogs.date_created', 'users.username')
+            ->where('blogs.title', 'LIKE', '%' . $query . '%')
+            ->orderBy('blogs.date_created', 'desc')
+            ->get();
+        return response()->json(['blogs' => $blogs]);
+    }
+
 }
 
 ?>

@@ -18,13 +18,9 @@
                 <span class="px-3">5 likes</span>
                 <span>10 Community Members</span>
             </div>
-            <form action="{{ route('bookmarks.remove') }}" method="POST" class="mt-2">
-                @csrf
-                <input type="hidden" name="blog_id" value="{{ $blog->id }}">
-                <button type="submit" class="btn btn-sm btn-danger">
-                    Remove Bookmark
-                </button>
-            </form>
+            <button class="btn btn-sm btn-primary bookmark-btn" data-blog-id="{{ $blog->id }}">
+                Remove Bookmark
+            </button>
         </div>
         <hr>
     @endforeach
