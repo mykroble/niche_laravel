@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
 </head>
 <body class="bg-dark m-0 p-0">
+    @if(session('successMessage'))
+    <div class="alert alert-success" role="alert">
+        Status successfully updated for user: <b>"{{ session('successMessage') }}"</b>
+    </div>
+    @endif
     <div class="table-wrapper">
         <h1 class="text-white">User List</h1>
 
@@ -19,8 +24,9 @@
                     <th>Email</th>
                     <th>Display Name</th>
                     <th>Age</th>
-                    <th>is_admin</th>
-                    <th>is_banned</th>
+                    <th>Access Level</th>
+                    <th>Status</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,26 +38,34 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->display_name }}</td>
                         <td>{{ $user->age }}</td>
-                        <td>{{ $user->is_admin }}</td>
-                        <td>{{ $user->is_banned }}</td>
-                        <td data-userId="{{ $user->id }}"><button onclick="myAlert({{ $user->id }})" class="btn btn-light btn-sm">View</button></td>
+                        <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
+                        <td>{{ $user->is_banned ? 'Banned' : 'Alive' }}</td>
+                        <td><button onclick="userDetail({{ $user->id }})" class="btn btn-light btn-sm">View</button></td>
+                        @if($user->is_banned === 0)
+                        <td><button class="btn btn-danger btn-sm m-0 text-black" onclick="toggleBanUser('{{ $user->id }}', '{{ $user->username }}')">Ban user</button></td>
+                        @else
+                        <td><button class="btn btn-secondary btn-sm m-0 text-black" onclick="toggleBanUser('{{ $user->id }}', '{{ $user->username }}')">Unban user</button></td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 
-    <form id="form" method="POST" action="{{ route('admin.userDetail') }}" style="display:none">
-        @csrf
-        <input type="hidden" id="userIdInput" name="userId">
-    </form>
-
     <script>
+        function toggleBanUser(userId, username){
+            var userConfirmed = confirm('Are you sure you want to ban this user?\n\nID: ' + userId + '\nUsername: ' + username);
+    
+            if (userConfirmed) {
+                var url = "{{ route('admin.toggleBanUser', ['id' => 'userId']) }}".replace('userId', userId);
+                window.location.href = url;
+            }
+        }
+
         function userDetail(userId) {
-            const form = document.getElementById('form');
-            const inp = document.getElementById('userIdInput');
-            inp.value = userId;
-            form.submit();
+            var url = "{{ route('admin.userDetail', ['id' => 'userId']) }}".replace('userId', userId);
+            
+            window.location.href = url;
         }
     </script>
 

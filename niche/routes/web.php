@@ -39,7 +39,10 @@ Route::middleware('auth')->group(function () {
 // Route::middleware('admin')->group(function() {
 // });
 Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
-Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
+Route::get('/admin/user/{id}', [AdminController::class, 'loadUserPosts'])->name('admin.userDetail');
+Route::get('/admin/blog/{id}', [AdminController::class, 'viewUserPost'])->name('admin.viewPost');
+Route::get('/admin/blog/{id}/ban', [AdminController::class, 'toggleBanPost'])->name('admin.toggleBanPost');         //notyet
+Route::get('/admin/user/{id}/ban', [AdminController::class, 'toggleBanUser'])->name('admin.toggleBanUser');         //notyet
 
 
 Route::middleware('auth')->group(function () {
