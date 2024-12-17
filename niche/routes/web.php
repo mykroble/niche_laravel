@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ExploreController;
+use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ChatController;
 
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookmarks/remove', [BookmarksController::class, 'removeBookmark'])->name('bookmarks.remove');
     Route::post('/bookmarks/add', [BookmarksController::class, 'addBookmark'])->name('bookmarks.add');
     Route::post('/bookmarks/toggle', [BookmarksController::class, 'toggleBookmark'])->name('bookmarks.toggle');
+});
+
+Route::middleware('admin')->group(function() {
+    Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
 });
 
 
