@@ -36,9 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookmarks/toggle', [BookmarksController::class, 'toggleBookmark'])->name('bookmarks.toggle');
 });
 
-Route::middleware('admin')->group(function() {
-    Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
-});
+// Route::middleware('admin')->group(function() {
+// });
+Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
+Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
 
 
 Route::middleware('auth')->group(function () {

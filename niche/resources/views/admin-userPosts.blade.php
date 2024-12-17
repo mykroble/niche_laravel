@@ -34,26 +34,11 @@
                         <td>{{ $user->age }}</td>
                         <td>{{ $user->is_admin }}</td>
                         <td>{{ $user->is_banned }}</td>
-                        <td data-userId="{{ $user->id }}"><button onclick="myAlert({{ $user->id }})" class="btn btn-light btn-sm">View</button></td>
+                        <td data-userId="{{ $user->id }}"><button onclick="userDetail({{ $user->id }})" class="btn btn-light btn-sm">View</button></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
-    <form id="form" method="POST" action="{{ route('admin.userDetail') }}" style="display:none">
-        @csrf
-        <input type="hidden" id="userIdInput" name="userId">
-    </form>
-
-    <script>
-        function userDetail(userId) {
-            const form = document.getElementById('form');
-            const inp = document.getElementById('userIdInput');
-            inp.value = userId;
-            form.submit();
-        }
-    </script>
-
 </body>
 </html>
