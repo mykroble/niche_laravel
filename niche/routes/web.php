@@ -48,22 +48,31 @@ Route::get('/admin/user/{id}/ban', [AdminController::class, 'toggleBanUser'])->n
 Route::middleware('auth')->group(function () {
     Route::get('/message', [ChatController::class, 'index'])->name('message');
     Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+    
 });
+Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
 
 
 
 
-Route::middleware('auth')->prefix('homepage')->group(function(){
+Route::middleware('auth')->prefix('homepage')->group(function() {
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
+    Route::delete('/post/{id}', [ProfileController::class, 'destroy'])->name('posts.delete');
+
+
 });
+
+
 
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
     Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
     Route::post('/save', [BlogController::class, 'saveBlogSubmit'])->name('saveBlog.submit');
+    Route::post('/blogs/search', [BlogController::class, 'ajaxSearch'])->name('blogs.search');
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
+
 
 Route::get('/login',[loginController::class, 'showLoginPage'])->name('login');
 Route::post('/login',[loginController::class, 'handleLoginSubmit'])->name('loginForm.handle');
