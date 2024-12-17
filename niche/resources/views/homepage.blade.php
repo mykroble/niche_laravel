@@ -10,11 +10,11 @@
 <div class="d-flex bg-dark flex-column align-items-center main-content">
     @if(count($channels) > 0)
     <div class="card">
-    @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         @if (session('info'))
-            <div class="alert alert-info">{{ session('info') }}</div>
+        <div class="alert alert-info">{{ session('info') }}</div>
         @endif
         <div class="channels-section my-4">
             <h4 class="text-white">Channels</h4>
@@ -28,25 +28,26 @@
                 @endforeach
             </div>
         </div>
+
         @foreach ($blogs as $blog)
         <div class="blog-container">
-            <div class="h-100 w-100 d-flex justify-content-between channel">
+            <div class="channel m-0 p-0 h-100 d-flex justify-content-between">
                 <div class="d-flex">
-                    <div class="image-container">
+                    <div class="image-container-channel">
                         <img src="{{ asset('pics/channel-icon.svg') }}" class="channel-icon">
                     </div>
-                    <p class="m-auto p-1">{{ $blog->channelTitle }}</p>
+                    <p class="m-auto p-1 text-white-50">{{ $blog->channelTitle }}</p>
                 </div>
             </div>
             <div class="blog" data-blog-id="{{ $blog->id }}">
-                <div class="d-flex mb-3">
+                <div class="d-flex my-3 ">
                     <div class="image-container-user">
                         <img src="{{ asset($blog->icon_file_path) }}" class="user-icon">
                     </div>
-                    <p class="my-auto">
-                        {{ $blog->display_name }}
-                        <span class="text-secondary">@ {{ $blog->username }}</span>
-                    </p>
+                    <div class="d-block userinfo">
+                        <div class="m-0 p-0">{{ $blog->display_name }}</div>
+                        <div class="m-0 p-0 text-secondary username">@ {{ $blog->username }}</div>
+                    </div>
                 </div>
                 <h5>{{ $blog->title }}</h5>
                 <div class="preview" data-blogId="{{ $blog->id }}">{!! $blog->content !!}</div>
