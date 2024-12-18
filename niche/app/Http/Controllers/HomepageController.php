@@ -22,16 +22,13 @@ class HomepageController extends Controller
             ->get();
 
         
-        $blogsQuery = DB::table('blogs')
+            $blogsQuery = DB::table('blogs')
             ->join('users', 'blogs.author_user_id', '=', 'users.id')
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
             ->join('user_channels', 'blogs.channel_id', '=', 'user_channels.channel_id')
             ->where('user_channels.user_id', Auth::id())
             ->where('blogs.is_banned', 0)
             ->where('users.is_banned', 0)
-            ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
-            ->orderBy('blogs.date_created', 'asc');
-
             ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'desc');
             
