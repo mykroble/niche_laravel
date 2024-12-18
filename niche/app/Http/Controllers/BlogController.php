@@ -73,32 +73,28 @@ class BlogController extends Controller{
     }
 
     public function viewBlog($blogId) {
-        // Get the blog data
+
         $blogData = DB::table('blogs')
             ->join('users', 'users.id', '=', 'blogs.author_user_id')
-            ->select('blogs.*', 'users.username AS username')
+            ->select('blogs.*', 'users.id AS userId', 'users.username AS username')
             ->where('blogs.id', $blogId)
-            ->where('blogs.is_banned', 0) // Exclude banned blogs
+            ->where('blogs.is_banned', 0)
             ->where('users.is_banned', 0)
             ->first();
     
-        // If no blog data is found, return content unavailable
         if (!$blogData) {
             return redirect()->route('homepage')->with('pageUnavailable');
         }
     
-        // Get the comments for the blog
         $comments = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.author_user_id')
             ->join('blogs', 'blogs.id', '=', 'comments.blog_id')
-            ->select('comments.*')
+            ->select('comments.*', 'users.display_name', 'users.username', 'users.icon_file_path')
             ->where('blog_id', $blogId)
             ->get();
     
-        // Get the blog images
         $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
     
-        // Return the view with blog data, images, and comments
         return view('blogViewer', compact('blogData', 'blogImages', 'comments'));
     }
 
@@ -119,14 +115,14 @@ class BlogController extends Controller{
 
     public function createComment(Request $request){        //new function for comments
         $request->validate([
-            'content' => 'required|string|max:1000',
-            'author_id' => 'required|integer',
+            'commentInput' => 'required|string|max:1000',
             'blog_id' => 'required|integer'
         ]);
          
         $comment = comment::create([
-            'content' => $request->input('content'),
-            'author_user_id' => Auth::id()
+            'content' => $request->input('commentInput'),
+            'author_user_id' => Auth::id(),
+            'blog_id' => $request->input('blog_id')
         ]);
         
         if($comment){
