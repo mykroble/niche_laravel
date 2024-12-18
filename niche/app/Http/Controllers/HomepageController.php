@@ -26,6 +26,8 @@ class HomepageController extends Controller{
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
             ->join('user_channels', 'blogs.channel_id', '=', 'user_channels.channel_id')
             ->where('user_channels.user_id', Auth::id())
+            ->where('blogs.is_banned', 0)
+            ->where('users.is_banned', 0)
             ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'desc');
             
@@ -88,6 +90,8 @@ class HomepageController extends Controller{
             'channel.title as channel'
         )
         ->where('bookmarks.user_id', Auth::id())
+        ->where('blogs.is_banned', 0)
+        ->where('users.is_banned', 0)
         ->orderBy('bookmarks.date_added', 'desc')
         ->limit(100)
         ->get();

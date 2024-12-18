@@ -7,6 +7,7 @@
 @section('title', 'Niche')
 
 @section('content')
+@if(session('pageUnavailable'))
     <div class="title px-1 pt-3 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p class="m-0 p-0">by: @ {{ $blogData->username }}</p></div>
     <hr class="border-white">
     <div id="content" class="text-white">{!!$blogData->content !!}</div>
@@ -28,4 +29,7 @@
         });
         content.style.display = 'block';
     </script>
+@else
+    <div class="m-auto text-white">Content unavaiable</div>
+@endif
 @endsection

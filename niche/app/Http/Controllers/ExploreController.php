@@ -21,6 +21,8 @@ class ExploreController extends Controller{
         })
         ->select('blogs.*', 'users.display_name', 'users.username', 'channel.id AS channelId', 'channel.title AS channelTitle', 'users.icon_file_path')
         ->whereNull('user_channels.channel_id')
+        ->where('blogs.is_banned', 0)
+        ->where('users.is_banned', 0)
         ->orderBy('blogs.date_created', 'desc');
 
         $blogs = $blogsQuery->limit(100)->get();
