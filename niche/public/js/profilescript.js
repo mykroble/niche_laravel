@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const buttons = document.querySelectorAll('.btn');
   const underline = document.querySelector('.underline');
 
-  // Make the first button active by default
   const firstButton = document.getElementById('btn1');
   firstButton.classList.add('active');
 
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Set initial position of the underline based on the first button
   window.addEventListener('load', () => {
     const firstButton = buttons[0];
     const buttonWidth = firstButton.offsetWidth;
@@ -56,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
   window.openposts = openposts;
   window.openlikes = openlikes;
 
-  // Ensure posts content is shown by default
   openposts();
 });
 document.addEventListener('DOMContentLoaded', () => {
