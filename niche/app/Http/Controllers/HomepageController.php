@@ -46,7 +46,20 @@ class HomepageController extends Controller
             ->pluck('blog_id')
             ->toArray();
 
-    return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
+
+        $likedBlogIds = DB::table('likes')
+        ->where('user_id', Auth::id())
+        ->pluck('blog_id')
+        ->toArray();
+        
+        $likeCounts = DB::table('likes')
+            ->select('blog_id', DB::raw('COUNT(*) as count'))
+            ->groupBy('blog_id')
+            ->pluck('count', 'blog_id')
+            ->toArray();
+        
+        return view('homepage', compact('blogs', 'images', 'channels', 'selectedChannelId', 'bookmarkedBlogIds', 'likedBlogIds', 'likeCounts'));
+
     }
     public function bookmarkBlog(Request $request)
     {
@@ -93,5 +106,66 @@ class HomepageController extends Controller
         ->get();
 
     return view('bookmarks', ['blogs' => $bookmarks]);
+    }
+    
+    public function toggleLike(Request $request)
+    {
+        $blogId = $request->input('blog_id');
+        $userId = Auth::id();
+    
+        $existingLike = DB::table('likes')
+            ->where('user_id', $userId)
+            ->where('blog_id', $blogId)
+            ->first();
+    
+        if ($existingLike) {
+            DB::table('likes')
+                ->where('user_id', $userId)
+                ->where('blog_id', $blogId)
+                ->delete();
+    
+            $status = 'unliked';
+        } else {
+            DB::table('likes')->insert([
+                'user_id' => $userId,
+                'blog_id' => $blogId,
+                'date_added' => now(),
+                
+            ]);
+    
+            $status = 'liked';
+        }
+    
+        $likeCount = DB::table('likes')
+            ->where('blog_id', $blogId)
+            ->count();
+    
+        return response()->json([
+            'status' => $status,
+            'likeCount' => $likeCount
+        ]);
+    }
+    public function homepage()
+    {
+        $userId = Auth::id();
+    
+        $blogs = DB::table('blogs')->get();
+    
+        $likedBlogIds = DB::table('likes')
+            ->where('user_id', $userId)
+            ->pluck('blog_id')
+            ->toArray();
+    
+        $likeCounts = DB::table('likes')
+            ->select('blog_id', DB::raw('COUNT(*) as count'))
+            ->groupBy('blog_id')
+            ->pluck('count', 'blog_id')
+            ->toArray();
+    
+        return view('homepage', [
+            'blogs' => $blogs,
+            'likedBlogIds' => $likedBlogIds,
+            'likeCounts' => $likeCounts
+        ]);
     }
 }

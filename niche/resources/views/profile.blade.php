@@ -32,8 +32,8 @@
 
     <!-- navigation -->
     <div class="profile-tabs mt-3 d-flex justify-content-around border-left">
-        <button class="btn btn-link text-decoration-none text-light fw-bold border-x" onclick="openposts()" id="btn1">Posts</button>
-        <button class="btn btn-link text-decoration-none text-light" onclick="openlikes()" id="btn2">Likes</button>
+        <button class="btn btn-link text-decoration-none text-light fw-bold border-x" onclick="loadPosts()" id="btn1">Posts</button>
+        <!-- <button class="btn btn-link text-decoration-none text-light" onclick="loadLikes()" id="btn2">Likes</button> -->
     </div>
 
     <!-- Posts -->
@@ -51,20 +51,22 @@
                         <h5>{{ $blog->title }}</h5>
                         <div class="preview">{!! $blog->content !!}</div>
                         <div class="d-flex justify-content-start">
-                            <span class="px-3 mt-2 "><i class="bi bi-heart"></i> 5 Likes</span>
-                            <span class="px-3 mt-2 "><i class="bi bi-people"></i> 10 Community Members</span>
-                           
+                        <button 
+                            class="mt-2 px-2 btn btn-sm toggle-like {{ in_array($blog->id, $likedBlogIds) ? 'btn-danger' : 'btn-outline-danger' }}"
+                            data-blog-id="{{ $blog->id }}"
+                        >
+                            {{ $likeCounts[$blog->id] ?? 0 }} Likes
+                        </button>
                         </div>
                     </div>
                 </a>
             @endforeach
         @endif
     </div>
+ 
 
     <!-- Likes Section -->
-    <div id="likes-content" class="d-none mt-3">
-        <!-- need likes here -->
-    </div>
+        
 </div>
 
 <script src="{{ asset('/js/profilescript.js') }}"></script>

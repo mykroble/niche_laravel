@@ -114,3 +114,19 @@
     padding:1rem;
     margin:auto;
 }
+
+
+.comment-wrapper{
+    /* border-style: solid;
+    border-radius: 5px;
+    border-width: 1px; */
+    /* border-color: white; */
+    padding:0.5rem 1rem 0.5rem 1rem;
+    font-size: x-small;
+}
+.comment-user-icon{
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    margin:auto 0.5rem auto 0;
+}
