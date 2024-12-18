@@ -10,7 +10,6 @@
 
     <div class="title px-1 pt-3 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p class="m-0 p-0">by: @ {{ $blogData->username }}</p></div>
     <hr class="border-white">
-
     <div id="content" class="text-white mb-3">{!!$blogData->content !!}</div>
     <div class="w-100">
         
@@ -51,7 +50,6 @@
         @endforeach
     </div>
     <hr>
-
     <script>
 
         const blogImages = @json($blogImages);
