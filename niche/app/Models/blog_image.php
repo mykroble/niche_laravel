@@ -15,9 +15,9 @@ class blog_image extends Model
         'alt',
         'image_id'
     ];
-
+    
     protected $guarded = [
-        'blog_image_id',
+        'id',
     ];
 
 }
