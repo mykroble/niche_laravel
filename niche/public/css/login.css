@@ -17,7 +17,7 @@
     padding-right: 40px;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 100vh;
     background: linear-gradient(45deg, #ff6a00, #f6e613, #00bfff);
     background-size: 300% 300%;
     animation: gradientAnimation 6s ease infinite;

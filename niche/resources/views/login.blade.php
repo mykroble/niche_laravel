@@ -10,22 +10,7 @@
 </head>
 <body>
     <div class="container-fluid d-flex flex-column min-vh-100 bg-dark">
-        <header class="pt-2 bg-danger">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-3">
-                    <a class="text-decoration-none text-light" href="#">Niche</a>
-                </div>
-                <div class="col d-flex justify-content-evenly">
-                    <ul class="list-unstyled d-flex gap-4 mb-0">
-                        <li><a class="text-decoration-none text-light" href="#">Home</a></li>
-                        <li><a class="text-decoration-none text-light" href="#">Explore</a></li>
-                        <li><a class="text-decoration-none text-light" href="#">Profile</a></li>
-                        <li><a class="text-decoration-none text-light" href="#">Pins</a></li>
-                        <li><a class="text-decoration-none text-light" href="#">Settings</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+        
         <main class="main flex-grow-1">
             <div class="login-container">
                 <div class="text-center text-light tagline">
@@ -66,9 +51,6 @@
             </div>
         </main>
 
-        <footer class="footer bg-danger">
-            <p>© 2024 Niche. Find your Niche.</p>
-        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
