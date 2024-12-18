@@ -314,13 +314,16 @@ togglePreview.addEventListener('click', function(){
 const channelSelector = document.getElementById('modalSelectChannel');
 channelSelector.addEventListener('change', () => {
     const modalSubmitBtn = document.getElementById('modalSubmitBtn');
-    modalSubmitBtn.removeAttribute('disabled');
+    modalSubmitBtn.disabled=false;
 });
 
 
 const content = document.getElementById('content');
 
 function submitForm() {
+    const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+    modalSubmitBtn.disabled = true;
+    
     const contentInput = document.getElementById('content');
     contentInput.value = DOMPurify.sanitize(preview.innerHTML);
     
@@ -328,19 +331,19 @@ function submitForm() {
     images.forEach(image => {
         image.removeAttribute('src');
     });
-
+    
     const titleInput = document.getElementById('titleInput');
     const title = document.getElementById('title');
     title.value = titleInput.value;
-
+    
     const selectedVisibility = document.querySelector('input[name="visibilityInp"]:checked').value;
     const visibility = document.getElementById('visibility');
     visibility.value = selectedVisibility;
-
+    
     const channelInput = document.getElementById('modalSelectChannel');
     const channel = document.getElementById('channel');
     channel.value = channelInput.value;
-
+    
     // alert(blogForm.innerHTML);
     blogForm.submit();
 }

@@ -13,7 +13,7 @@
         Status successfully updated for blog: <b>"{{ session('successMessage') }}"</b>
     </div>
     @endif
-    <button class="btn btn-light btn-sm m-2"><a href="{{route('adminPage')}}" class="text-decoration-none text-black">Go back</a></button>
+    <button class="btn btn-light btn-sm my-2 mx-3 p-1"><a href="{{route('adminPage')}}" class="text-decoration-none text-black w-100 h-100 p-2">Go back</a></button>
     <div class="table-wrapper">
         <h1 class="text-white">Posts by @ {{$blogs->first()->username ?? 'Unknown' }}</h1>
 

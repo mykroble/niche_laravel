@@ -64,7 +64,7 @@ class ChatController extends Controller
     // Return response as JSON
     return response()->json([
         'user_name' => $selectedUser->display_name,
-        'user_image' => asset('images/user1.jpg'), // Replace with dynamic image if available
+        'user_image' => asset($selectedUser->icon_file_path), // Replace with dynamic image if available //done
         'messages' => $messages,
     ]);
 }

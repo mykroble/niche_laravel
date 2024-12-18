@@ -20,8 +20,8 @@ class AdminController extends Controller{
 
         $usersQuery = DB::table('users')
             ->leftJoin('blogs', 'users.id', '=', 'blogs.author_user_id')
-            ->select('users.id','users.username', 'users.email', 'users.display_name', 'users.age', 'users.is_admin', 'users.is_banned', DB::raw('MAX(blogs.date_last_updated) as latest_blog_date'))
-            ->groupBy('users.id','users.username', 'users.email', 'users.display_name', 'users.age', 'users.is_admin', 'users.is_banned')
+            ->select('users.id','users.username', 'users.email', 'users.display_name', 'users.age', 'users.icon_file_path', 'users.is_admin', 'users.is_banned', DB::raw('MAX(blogs.date_last_updated) as latest_blog_date'))
+            ->groupBy('users.id','users.username', 'users.email', 'users.display_name', 'users.age', 'users.icon_file_path', 'users.is_admin', 'users.is_banned')
             ->orderByDesc('latest_blog_date');
 
         $users = $usersQuery->skip(0)->limit(100)->get();
@@ -38,7 +38,7 @@ class AdminController extends Controller{
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
             ->select('blogs.*', 'channel.title AS channel', 'users.username AS username')
             ->where('author_user_id', $userId)
-            ->orderBy('created_at', 'desc');
+            ->orderBy('blogs.date_last_updated', 'desc');
             
         $blogs = $blogsQuery->skip(0)->limit(100)->get();
         
