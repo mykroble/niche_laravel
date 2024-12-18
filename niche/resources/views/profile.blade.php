@@ -33,7 +33,7 @@
     <!-- navigation -->
     <div class="profile-tabs mt-3 d-flex justify-content-around border-left">
         <button class="btn btn-link text-decoration-none text-light fw-bold border-x" onclick="loadPosts()" id="btn1">Posts</button>
-        <button class="btn btn-link text-decoration-none text-light" onclick="loadLikes()" id="btn2">Likes</button>
+        
     </div>
 
     <!-- Posts -->
