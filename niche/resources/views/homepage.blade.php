@@ -16,6 +16,9 @@
         @if (session('info'))
         <div class="alert alert-info">{{ session('info') }}</div>
         @endif
+        @if (session('pageUnavailable'))
+        <div class="alert alert-warning"><p>Content Not Available</p></div>
+        @endif
         <div class="channels-section my-4">
             <h4 class="text-white">Channels</h4>
             <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
