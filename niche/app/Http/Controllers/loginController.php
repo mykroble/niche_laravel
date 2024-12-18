@@ -34,15 +34,17 @@ class loginController extends Controller{
 
         
         if(Auth::attempt($arr, $request->has('remember'))){
-            $userId = DB::table('users')
+
+            $user = DB::table('users')
                 ->select('is_admin')
                 ->where('email', '=', $arr['email'])
                 ->first();
 
-            if($userId === 1){
+            if($user && $user->is_admin === 1){
                 return redirect()->route('adminPage');
+            } else{
+                return redirect()->route('homepage');
             }
-            return redirect()->route('homepage');
         } else {
             return redirect()->back()
                 ->withErrors(['password' => 'Invalid credentials. Please try again.'])

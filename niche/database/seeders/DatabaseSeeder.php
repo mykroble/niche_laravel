@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BlogsTableSeeder::class,
             CommentsTableSeeder::class,
             UserChannelsTableSeeder::class,
+            blogImagesSeeder::class,
         ]);
     }
 }
