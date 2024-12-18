@@ -285,4 +285,12 @@
 .open-modal-btn:hover {
     background-color: #45a049;
 }
+
+.post-setting{
+    width:90%;
+    display:block;
+    justify-content: initial;
+    align-self: initial;
+    align-items: initial;
+}
 /* PREVIEW MODAL END */

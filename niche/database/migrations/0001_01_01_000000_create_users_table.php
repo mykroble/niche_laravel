@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->integer('age')->nullable();
             $table->string('gender')->nullable();
+            $table->string('icon_file_path')->default('default_user_icons/0.svg');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_admin')->default(0);

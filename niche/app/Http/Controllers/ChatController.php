@@ -5,6 +5,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -39,23 +40,47 @@ class ChatController extends Controller
         ]);
     }
     
-    
+    public function fetchUserMessages(Request $request)
+{
+    $currentUserId = Auth::id();
+    $selectedUserId = $request->input('user_id');
+
+    // Fetch the selected user's information
+    $selectedUser = DB::table('users')->where('id', $selectedUserId)->first();
+
+    // Fetch messages between the logged-in user and the selected user
+    $messages = DB::table('messages')
+        ->where(function ($query) use ($currentUserId, $selectedUserId) {
+            $query->where('sender_id', $currentUserId)
+                  ->where('receiver_id', $selectedUserId);
+        })
+        ->orWhere(function ($query) use ($currentUserId, $selectedUserId) {
+            $query->where('sender_id', $selectedUserId)
+                  ->where('receiver_id', $currentUserId);
+        })
+        ->orderBy('created_at', 'asc')
+        ->get();
+
+    // Return response as JSON
+    return response()->json([
+        'user_name' => $selectedUser->display_name,
+        'user_image' => asset($selectedUser->icon_file_path), // Replace with dynamic image if available //done
+        'messages' => $messages,
+    ]);
+}
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'receiver_id' => 'required|exists:users,id',
-            'message' => 'required|string|max:1000',
-        ]);
-    
-        $message = Message::create([
+        DB::table('messages')->insert([
             'sender_id' => Auth::id(),
-            'receiver_id' => $validated['receiver_id'],
-            'message' => $validated['message'],
+            'receiver_id' => $request->input('receiver_id'),
+            'message' => $request->input('message'),
+            'created_at' => now(),
         ]);
     
-        return response()->json(['message' => $message]);
+        return redirect()->back();
     }
+
     // Add this method to the ChatController
     public function getNewMessages(Request $request)
     {
@@ -75,5 +100,29 @@ class ChatController extends Controller
     }
     
 
-    
+    public function showMessages(Request $request, $user_id)
+{
+    $currentUserId = Auth::id();
+
+    // Fetch all users for the sidebar
+    $users = DB::table('users')->where('id', '!=', $currentUserId)->get();
+
+    // Fetch messages between the logged-in user and the selected user
+    $messages = DB::table('messages')
+        ->where(function ($query) use ($currentUserId, $user_id) {
+            $query->where('sender_id', $currentUserId)
+                  ->where('receiver_id', $user_id);
+        })
+        ->orWhere(function ($query) use ($currentUserId, $user_id) {
+            $query->where('sender_id', $user_id)
+                  ->where('receiver_id', $currentUserId);
+        })
+        ->orderBy('created_at', 'asc')
+        ->get();
+
+    // Fetch selected user's info for the chat header
+    $currentUser = DB::table('users')->where('id', $user_id)->first();
+
+    return view('messages', compact('users', 'messages', 'currentUser'));
+}
 }

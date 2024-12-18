@@ -15,7 +15,7 @@
         
         <div class="position-relative">
             <img src="{{ asset('pics/banner.jpg') }}" class="img-fluid banner" alt="Banner">
-            <img src="{{ asset('pics/profile.jpg') }}" class="profile-picture rounded-circle border border-white" alt="Profile Picture">
+            <img src="{{ asset(auth()->User()->icon_file_path) }}" class="profile-picture rounded-circle border border-white" alt="Profile Picture">
         </div>
         <div class="mt-4 text-light pt-4">
             <span class="">{{ $userDetails->display_name }}</span>

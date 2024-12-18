@@ -21,7 +21,7 @@ class HomepageController extends Controller
             ->select('channel.*', 'user_channels.date_added')
             ->get();
 
-        // Retrieve blogs based on selected channel or all joined channels
+        
         $blogsQuery = DB::table('blogs')
             ->join('users', 'blogs.author_user_id', '=', 'users.id')
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
@@ -30,23 +30,23 @@ class HomepageController extends Controller
             ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'asc');
 
+            ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
+            ->orderBy('blogs.date_created', 'desc');
+            
         if ($selectedChannelId) {
             $blogsQuery->where('blogs.channel_id', $selectedChannelId);
         }
 
         $blogs = $blogsQuery->limit(100)->get();
-
-        // Bookmarked blogs
+        
         $bookmarkedBlogIds = DB::table('bookmarks')
             ->where('user_id', Auth::id())
             ->pluck('blog_id')
             ->toArray();
 
-        return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
+    return view('homepage', compact('blogs', 'channels', 'selectedChannelId', 'bookmarkedBlogIds'));
     }
-
-    // 2. Send a message to a specific channel
-    public function sendMessage(Request $request)
+    public function bookmarkBlog(Request $request)
     {
         $request->validate([
             'channel_id' => 'required|integer',
@@ -72,48 +72,22 @@ class HomepageController extends Controller
 
         return response()->json($newMessage);
     }
+    public function showBookmarks(){
+        $bookmarks = DB::table('bookmarks')
+        ->join('blogs', 'bookmarks.blog_id', '=', 'blogs.id')
+        ->join('users', 'blogs.author_user_id', '=', 'users.id')
+        ->select(
+            'blogs.id',
+            'blogs.title',
+            'blogs.content',
+            'blogs.date_created',
+            'users.username',
+            'users.display_name'
+        )
+        ->where('bookmarks.user_id', Auth::id())
+        ->orderBy('bookmarks.date_added', 'desc')
+        ->get();
 
-    // 3. Fetch initial chat messages for a specific channel
-    public function getMessages(Request $request)
-    {
-        $request->validate([
-            'channel_id' => 'required|integer',
-        ]);
-
-        $channelId = $request->input('channel_id');
-
-        // Retrieve the last 50 messages for the selected channel
-        $messages = DB::table('live_chats')
-            ->join('users', 'live_chats.user_id', '=', 'users.id')
-            ->where('live_chats.channel_id', $channelId)
-            ->select('live_chats.*', 'users.display_name as username')
-            ->orderBy('live_chats.created_at', 'asc')
-            ->limit(50)
-            ->get();
-
-        return response()->json($messages);
-    }
-
-    // 4. Poll for new messages in a channel
-    public function fetchNewMessages(Request $request)
-    {
-        $request->validate([
-            'channel_id' => 'required|integer',
-            'last_message_id' => 'nullable|integer',
-        ]);
-
-        $channelId = $request->input('channel_id');
-        $lastMessageId = $request->input('last_message_id') ?? 0;
-
-        // Retrieve new messages based on the last seen message ID
-        $newMessages = DB::table('live_chats')
-            ->join('users', 'live_chats.user_id', '=', 'users.id')
-            ->where('live_chats.channel_id', $channelId)
-            ->where('live_chats.id', '>', $lastMessageId)
-            ->select('live_chats.*', 'users.display_name as username')
-            ->orderBy('live_chats.created_at', 'asc')
-            ->get();
-
-        return response()->json($newMessages);
+    return view('bookmarks', ['blogs' => $bookmarks]);
     }
 }

@@ -22,6 +22,16 @@ class BlogsTableSeeder extends Seeder
             ],
             [
                 'author_user_id' => 2,
+                'title' => 'Lists of default icons available on Niche!',
+                'content' => '<div class="section">            <div class="text-section">I hope this serves as the sample blog posts for whatever reason</div>        </div><div class="section"><div class="marked-section"><h3>List of default icons available through colors!!</h3></div></div><div class="section"><div class="image-section"><div data-image-id="12" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="13" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="10" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="11" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="8" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="9" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="6" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="7" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="4" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="5" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="2" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="3" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="image-section"><div data-image-id="0" class="image-container-uploaded"><img class="uploaded-image"></div><div data-image-id="1" class="image-container-uploaded"><img class="uploaded-image"></div></div></div><div class="section"><div class="marked-section"><h1>THE POWER OF SVG!!!!!!</h1></div></div>',
+                'date_created' => DB::raw('NOW() + INTERVAL 5 SECOND'),
+                'date_last_updated' => DB::raw('NOW() + INTERVAL 5 SECOND'),
+                'is_public' => true,
+                'is_banned' => false,
+                'channel_id' => 8, // Tech News
+            ],
+            [
+                'author_user_id' => 2,
                 'title' => 'Top 10 AI Tools for Developers in 2024',
                 'content' => 'A comprehensive list of the best AI tools that every developer should know about.',
                 'date_created' => now(),
