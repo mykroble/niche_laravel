@@ -29,9 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/explore', [ExploreController::class, 'joinChannel'])->name('channel.join');
 
     // Live Chat Routes // change the links to wherever it needs to be 
-    Route::post('/homepage/live-chat/send', [HomepageController::class, 'sendMessage'])->name('livechat.send'); // Send a message
-    Route::get('/homepage/live-chat/messages', [HomepageController::class, 'getMessages'])->name('livechat.messages'); // Fetch initial messages
-    Route::get('/homepage/live-chat/new-messages', [HomepageController::class, 'fetchNewMessages'])->name('livechat.new'); // Poll for new messages
+    Route::post('/homepage/live-chat/send', [HomepageController::class, 'sendMessage'])->name('livechat.send');
+    Route::get('/homepage/live-chat/messages', [HomepageController::class, 'getMessages'])->name('livechat.messages');
+    Route::get('/homepage/live-chat/new-messages', [HomepageController::class, 'fetchNewMessages'])->name('livechat.new');
 
 
 });
