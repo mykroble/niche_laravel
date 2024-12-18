@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
 // Route::middleware('admin')->group(function() {
 // });
+//these are all protected of access inside the controller, no worries.
 Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
 Route::get('/admin/user/{id}', [AdminController::class, 'loadUserPosts'])->name('admin.userDetail');
 Route::get('/admin/blog/{id}', [AdminController::class, 'viewUserPost'])->name('admin.viewPost');
@@ -70,6 +71,8 @@ Route::middleware('auth')->prefix('blog')->group(function(){                // h
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
     Route::post('/save', [BlogController::class, 'saveBlogSubmit'])->name('saveBlog.submit');
     Route::post('/blogs/search', [BlogController::class, 'ajaxSearch'])->name('blogs.search');
+    
+    Route::post('/comment', [BlogController::class, 'createComment'])->name('blogs.comment');
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 

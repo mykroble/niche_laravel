@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\CommonMarkConverter;
 use Illuminate\Support\Facades\DB;
+use App\Models\comment;
 
 class BlogController extends Controller{
 
@@ -79,9 +80,17 @@ class BlogController extends Controller{
             ->where('blogs.is_banned', 0)
             ->where('users.is_banned', 0)
             ->first();
-        if($blogData){
+        
+        $comments = DB::table('comments')       //added comments query! Havent tested, so ye
+            ->join('users', 'users.id', '=', 'comments.author_user_id')
+            ->join('blogs', 'blogs.id', '=', 'comments.blog_id')
+            ->select('comments.*')
+            ->where('blog_id', $blogId)
+            ->get();
+
+        if($blogData && $comments){
             $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
-            return view('blogViewer', compact('blogData', 'blogImages'));
+            return view('blogViewer', compact('blogData', 'blogImages', 'comments'));   //passing to balde here
         } else {
             return view('blogViewer')->with('pageUnavailable');
         }
@@ -100,6 +109,25 @@ class BlogController extends Controller{
             ->orderBy('blogs.date_created', 'desc')
             ->get();
         return response()->json(['blogs' => $blogs]);
+    }
+
+    public function createComment(Request $request){        //new function for comments
+        $request->validate([
+            'content' => 'required|string|max:1000',
+            'author_id' => 'required|integer',
+            'blog_id' => 'required|integer'
+        ]);
+         
+        $comment = comment::create([
+            'content' => $request->input('content'),
+            'author_user_id' => Auth::id()
+        ]);
+        
+        if($comment){
+            return redirect()->route('viewBlog', ['value' => $request->input('blog_id')])->with('successfullyCommented');
+        } else {
+            return redirect()->back()->with('error');
+        }
     }
 
 }
