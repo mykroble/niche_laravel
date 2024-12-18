@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class HomepageController extends Controller{
+class HomepageController extends Controller
+{
+    // 1. Load Homepage with channels, blogs, and bookmarked blogs
     public function loadHomepage(Request $request)
     {
-        
         $selectedChannelId = $request->input('channel_id');
 
-        
+        // Retrieve channels the user has joined
         $channels = DB::table('user_channels')
             ->join('channel', 'user_channels.channel_id', '=', 'channel.id')
             ->where('user_channels.user_id', Auth::id())
@@ -20,7 +21,7 @@ class HomepageController extends Controller{
             ->select('channel.*', 'user_channels.date_added')
             ->get();
 
-            
+        
         $blogsQuery = DB::table('blogs')
             ->join('users', 'blogs.author_user_id', '=', 'users.id')
             ->join('channel', 'blogs.channel_id', '=', 'channel.id')
@@ -28,6 +29,9 @@ class HomepageController extends Controller{
             ->where('user_channels.user_id', Auth::id())
             ->where('blogs.is_banned', 0)
             ->where('users.is_banned', 0)
+            ->select('blogs.*', 'users.display_name', 'users.username', 'channel.title AS channelTitle')
+            ->orderBy('blogs.date_created', 'asc');
+
             ->select('blogs.*', 'users.display_name', 'users.username', 'users.icon_file_path', 'channel.title AS channelTitle')
             ->orderBy('blogs.date_created', 'desc');
             
@@ -36,19 +40,12 @@ class HomepageController extends Controller{
         }
 
         $blogs = $blogsQuery->limit(100)->get();
-            
-        $blogIds = $blogs->pluck('id');
-
-        $images = DB::table('blog_images')
-            ->whereIn('blog_id', $blogIds)
-            ->select('*')
-            ->get()
-            ->groupBy('blog_id');
         
         $bookmarkedBlogIds = DB::table('bookmarks')
             ->where('user_id', Auth::id())
             ->pluck('blog_id')
             ->toArray();
+
 
         $likedBlogIds = DB::table('likes')
         ->where('user_id', Auth::id())
@@ -62,32 +59,36 @@ class HomepageController extends Controller{
             ->toArray();
         
         return view('homepage', compact('blogs', 'images', 'channels', 'selectedChannelId', 'bookmarkedBlogIds', 'likedBlogIds', 'likeCounts'));
-    }
 
+    }
     public function bookmarkBlog(Request $request)
     {
-        $blogId = $request->input('blog_id');
-        $userId = Auth::id();
+        $request->validate([
+            'channel_id' => 'required|integer',
+            'comment_content' => 'required|string|max:255',
+        ]);
 
-        $alreadyBookmarked = DB::table('bookmarks')
-            ->where('user_id', $userId)
-            ->where('blog_id', $blogId)
-            ->exists();
+        $channelId = $request->input('channel_id');
 
-        if (!$alreadyBookmarked) {
-            
-            DB::table('bookmarks')->insert([
-                'user_id' => $userId,
-                'blog_id' => $blogId,
-                'date_added' => now(),
-            ]);
-        }
+        // Insert the new message into the live_chats table
+        $messageId = DB::table('live_chats')->insertGetId([
+            'channel_id' => $channelId,
+            'user_id' => Auth::id(),
+            'comment_content' => $request->input('comment_content'),
+            'created_at' => now(),
+        ]);
 
-        return response()->json(['success' => true]);
+        // Retrieve the inserted message with the sender's username
+        $newMessage = DB::table('live_chats')
+            ->join('users', 'live_chats.user_id', '=', 'users.id')
+            ->where('live_chats.id', $messageId)
+            ->select('live_chats.*', 'users.display_name as username')
+            ->first();
+
+        return response()->json($newMessage);
     }
     public function showBookmarks(){
         $bookmarks = DB::table('bookmarks')
-        ->join('channel', 'channel.id', '=', 'bookmarks.id')
         ->join('blogs', 'bookmarks.blog_id', '=', 'blogs.id')
         ->join('users', 'blogs.author_user_id', '=', 'users.id')
         ->select(
@@ -96,26 +97,15 @@ class HomepageController extends Controller{
             'blogs.content',
             'blogs.date_created',
             'users.username',
-            'users.display_name',
-            'users.icon_file_path',
-            'channel.title as channel'
+            'users.display_name'
         )
         ->where('bookmarks.user_id', Auth::id())
         ->where('blogs.is_banned', 0)
         ->where('users.is_banned', 0)
         ->orderBy('bookmarks.date_added', 'desc')
-        ->limit(100)
         ->get();
 
-        $blogIds = $bookmarks->pluck('id');
-
-        $images = DB::table('blog_images')
-            ->whereIn('blog_id', $blogIds)
-            ->select('*')
-            ->get()
-            ->groupBy('blog_id');
-
-    return view('bookmarks', ['blogs' => $bookmarks], compact('images'));
+    return view('bookmarks', ['blogs' => $bookmarks]);
     }
     
     public function toggleLike(Request $request)
@@ -179,4 +169,3 @@ class HomepageController extends Controller{
         ]);
     }
 }
-?>

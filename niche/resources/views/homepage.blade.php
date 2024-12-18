@@ -124,6 +124,46 @@
             window.location.href = url;
         })
     });
+    $.ajax({
+    url: '{{ route("livechat.index") }}',
+    type: 'GET',
+    success: function(messages) {
+        messages.forEach(function(message) {
+            $('#chat-messages').append('<p>' + message.comment_content + '</p>');
+        });
+    }
+});
+$('#send-message').on('submit', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: '{{ route("livechat.store") }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            channel_id: 1, // Hardcoded example; replace dynamically
+            comment_content: $('#message-input').val()
+        },
+        success: function(message) {
+            $('#chat-messages').append('<p>' + message.comment_content + '</p>');
+            $('#message-input').val('');
+        }
+    });
+});
+setInterval(function() {
+    var lastMessageId = $('#chat-messages').children().last().data('message-id');
+
+    $.ajax({
+        url: '{{ route("livechat.fetchNew") }}',
+        type: 'GET',
+        data: { last_message_id: lastMessageId },
+        success: function(newMessages) {
+            newMessages.forEach(function(message) {
+                $('#chat-messages').append('<p data-message-id="' + message.id + '">' + message.comment_content + '</p>');
+            });
+        }
+    });
+}, 2000); // Poll every 2 seconds
 
     const blogImages = @json($images);
     Object.entries(blogImages).forEach(([blogId, images]) => {
