@@ -72,28 +72,34 @@ class BlogController extends Controller{
         return view('posteditor')->with('channels', $channels);
     }
 
-    public function viewBlog($blogId){
+    public function viewBlog($blogId) {
+        // Get the blog data
         $blogData = DB::table('blogs')
             ->join('users', 'users.id', '=', 'blogs.author_user_id')
             ->select('blogs.*', 'users.username AS username')
             ->where('blogs.id', $blogId)
-            ->where('blogs.is_banned', 0)
+            ->where('blogs.is_banned', 0) // Exclude banned blogs
             ->where('users.is_banned', 0)
             ->first();
-        
-        $comments = DB::table('comments')       //added comments query! Havent tested, so ye
+    
+        // If no blog data is found, return content unavailable
+        if (!$blogData) {
+            return redirect()->route('homepage')->with('pageUnavailable');
+        }
+    
+        // Get the comments for the blog
+        $comments = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.author_user_id')
             ->join('blogs', 'blogs.id', '=', 'comments.blog_id')
             ->select('comments.*')
             ->where('blog_id', $blogId)
             ->get();
-
-        if($blogData && $comments){
-            $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
-            return view('blogViewer', compact('blogData', 'blogImages', 'comments'));   //passing to balde here
-        } else {
-            return view('blogViewer')->with('pageUnavailable');
-        }
+    
+        // Get the blog images
+        $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
+    
+        // Return the view with blog data, images, and comments
+        return view('blogViewer', compact('blogData', 'blogImages', 'comments'));
     }
 
     public function ajaxSearch(Request $request)
