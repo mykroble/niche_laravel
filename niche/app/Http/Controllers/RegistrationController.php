@@ -40,11 +40,15 @@ class RegistrationController extends Controller{
                 'r_password.confirmed' => 'The password confirmation does not match.',
             ]
         );
-
+        $hashValueForIcon = 0 + ord($request->r_username[0]) + ord($request->r_username[strlen($request->r_username) - 1]);
+        echo $hashValueForIcon;
+        $hashValueForIcon %= 14;
         $user = User::create([
             'username' => $request->r_username,
             'email' => $request->r_email,
             'password' => Hash::make($request->r_password),
+            'display_name' => $request->r_username,
+            'icon_file_path' => 'default_user_icons/'. $hashValueForIcon . '.svg'
         ]);
 
         if($user != null && $request->has('proceed')){

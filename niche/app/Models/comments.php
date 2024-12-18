@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class blog_image extends Model
+class comment extends Model
 {
 
-    protected $table = 'blog_images';
+    protected $table = 'comments';
 
     protected $fillable = [
         'blog_id',
-        'file_path',
-        'alt',
-        'image_id'
+        'author_user_id',
+        'content',
     ];
     
     protected $guarded = [

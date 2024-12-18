@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\CommonMarkConverter;
 use Illuminate\Support\Facades\DB;
+use App\Models\comment;
 
 class BlogController extends Controller{
 
@@ -43,7 +44,7 @@ class BlogController extends Controller{
                 preg_match('/\d+/', $inputName, $matches);
                 $imageId = $matches[0];
                 $path = $file->store('blog_images', 'public');
-                $blogImageData[] = ['blog_id' => $blogId, 'file_path' => $path, 'image_id' => $imageId];
+                $blogImageData[] = ['blog_id' => $blogId, 'file_path' => 'storage/'.$path, 'image_id' => $imageId];
             }
         }
 
@@ -71,10 +72,30 @@ class BlogController extends Controller{
         return view('posteditor')->with('channels', $channels);
     }
 
-    public function viewBlog($blogId){
-        $blogData = DB::table('blogs')->where('id', $blogId)->first();
+    public function viewBlog($blogId) {
+
+        $blogData = DB::table('blogs')
+            ->join('users', 'users.id', '=', 'blogs.author_user_id')
+            ->select('blogs.*', 'users.id AS userId', 'users.username AS username')
+            ->where('blogs.id', $blogId)
+            ->where('blogs.is_banned', 0)
+            ->where('users.is_banned', 0)
+            ->first();
+    
+        if (!$blogData) {
+            return redirect()->route('homepage')->with('pageUnavailable');
+        }
+    
+        $comments = DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.author_user_id')
+            ->join('blogs', 'blogs.id', '=', 'comments.blog_id')
+            ->select('comments.*', 'users.display_name', 'users.username', 'users.icon_file_path')
+            ->where('blog_id', $blogId)
+            ->get();
+    
         $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
-        return view('blogViewer', compact('blogData', 'blogImages'));
+    
+        return view('blogViewer', compact('blogData', 'blogImages', 'comments'));
     }
 
     public function ajaxSearch(Request $request)
@@ -85,9 +106,30 @@ class BlogController extends Controller{
             ->join('users', 'blogs.author_user_id', '=', 'users.id')
             ->select('blogs.id', 'blogs.title', 'blogs.date_created', 'users.username')
             ->where('blogs.title', 'LIKE', '%' . $query . '%')
+            ->where('blogs.is_banned', 0)
+            ->where('users.is_banned', 0)
             ->orderBy('blogs.date_created', 'desc')
             ->get();
         return response()->json(['blogs' => $blogs]);
+    }
+
+    public function createComment(Request $request){        //new function for comments
+        $request->validate([
+            'commentInput' => 'required|string|max:1000',
+            'blog_id' => 'required|integer'
+        ]);
+         
+        $comment = comment::create([
+            'content' => $request->input('commentInput'),
+            'author_user_id' => Auth::id(),
+            'blog_id' => $request->input('blog_id')
+        ]);
+        
+        if($comment){
+            return redirect()->route('viewBlog', ['value' => $request->input('blog_id')])->with('successfullyCommented');
+        } else {
+            return redirect()->back()->with('error');
+        }
     }
 
 }

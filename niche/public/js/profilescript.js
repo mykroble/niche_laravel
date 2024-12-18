@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const buttons = document.querySelectorAll('.btn');
   const underline = document.querySelector('.underline');
 
-  // Make the first button active by default
   const firstButton = document.getElementById('btn1');
   firstButton.classList.add('active');
 
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Set initial position of the underline based on the first button
   window.addEventListener('load', () => {
     const firstButton = buttons[0];
     const buttonWidth = firstButton.offsetWidth;
@@ -56,6 +54,38 @@ document.addEventListener('DOMContentLoaded', function () {
   window.openposts = openposts;
   window.openlikes = openlikes;
 
-  // Ensure posts content is shown by default
   openposts();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const likeButtons = document.querySelectorAll('.toggle-like');
+  
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const blogId = this.dataset.blogId;
+
+            fetch("{{ route('likes.toggle') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ blog_id: blogId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'liked') {
+                    button.classList.remove('btn-outline-danger');
+                    button.classList.add('btn-danger');
+                } else if (data.status === 'unliked') {
+                    button.classList.remove('btn-danger');
+                    button.classList.add('btn-outline-danger');
+                }
+                button.textContent = `${data.likeCount} Likes`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
 });
