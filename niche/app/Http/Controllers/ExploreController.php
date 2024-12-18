@@ -55,8 +55,8 @@ class ExploreController extends Controller{
                 'date_added' => now(),
             ]);
         }
+    return redirect()->back()->with('successfullyjoined', 'You have successfully joined the channel!');
 
-        return redirect()->back();
     }
 }
 ?>
