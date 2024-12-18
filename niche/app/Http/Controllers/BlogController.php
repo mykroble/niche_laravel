@@ -76,10 +76,15 @@ class BlogController extends Controller{
             ->join('users', 'users.id', '=', 'blogs.author_user_id')
             ->select('blogs.*', 'users.username AS username')
             ->where('blogs.id', $blogId)
+            ->where('blogs.is_banned', 0)
+            ->where('users.is_banned', 0)
             ->first();
-
-        $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
-        return view('blogViewer', compact('blogData', 'blogImages'));
+        if($blogData){
+            $blogImages = DB::table('blog_images')->where('blog_id', $blogId)->get();
+            return view('blogViewer', compact('blogData', 'blogImages'));
+        } else {
+            return view('blogViewer')->with('pageUnavailable');
+        }
     }
 
     public function ajaxSearch(Request $request)
@@ -90,6 +95,8 @@ class BlogController extends Controller{
             ->join('users', 'blogs.author_user_id', '=', 'users.id')
             ->select('blogs.id', 'blogs.title', 'blogs.date_created', 'users.username')
             ->where('blogs.title', 'LIKE', '%' . $query . '%')
+            ->where('blogs.is_banned', 0)
+            ->where('users.is_banned', 0)
             ->orderBy('blogs.date_created', 'desc')
             ->get();
         return response()->json(['blogs' => $blogs]);
