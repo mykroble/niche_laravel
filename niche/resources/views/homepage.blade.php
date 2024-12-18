@@ -52,10 +52,15 @@
                 <h5>{{ $blog->title }}</h5>
                 <div class="preview" data-blogId="{{ $blog->id }}">{!! $blog->content !!}</div>
                 <div class="d-flex justify-content-start">
-                    <span class="px-3 mt-2">5 likes</span>
-                    <span class="px-3 mt-2">10 Community Members</span>
+                <button 
+                    class="mt-2 px-2 btn btn-sm toggle-like {{ in_array($blog->id, $likedBlogIds) ? 'btn-danger' : 'btn-outline-danger' }}"
+                    data-blog-id="{{ $blog->id }}"
+                >
+                    {{ $likeCounts[$blog->id] ?? 0 }} Likes
+                </button>
+                    
                     <button 
-                        class="btn mt-2 btn-sm toggle-bookmark {{ in_array($blog->id, $bookmarkedBlogIds) ? 'btn-success' : 'btn-primary' }}" 
+                        class="btn mx-2 mt-2 btn-sm toggle-bookmark {{ in_array($blog->id, $bookmarkedBlogIds) ? 'btn-success' : 'btn-primary' }}" 
                         data-blog-id="{{ $blog->id }}">
                         {{ in_array($blog->id, $bookmarkedBlogIds) ? 'Bookmarked' : 'Bookmark' }}
                     </button>
@@ -135,7 +140,40 @@
             }
         });
     });
+// for likes
+document.addEventListener('DOMContentLoaded', () => {
+    const likeButtons = document.querySelectorAll('.toggle-like');
 
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            event.stopPropagation();
+            const blogId = this.dataset.blogId;
+
+            fetch("{{ route('likes.toggle') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ blog_id: blogId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'liked') {
+                    button.classList.remove('btn-outline-danger');
+                    button.classList.add('btn-danger');
+                } else if (data.status === 'unliked') {
+                    button.classList.remove('btn-danger');
+                    button.classList.add('btn-outline-danger');
+                }
+                button.textContent = `${data.likeCount} Likes`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
 </script>
 
 @endsection

@@ -12,7 +12,6 @@ use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ChatController;
-
 use Illuminate\Support\Facades\Auth;
 
 
@@ -51,15 +50,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/user', [ChatController::class, 'fetchUserMessages'])->name('message.user');
 });
 Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
+Route::post('/likes/toggle', [HomepageController::class, 'toggleLike'])->name('likes.toggle');
 
 
 
 
 Route::middleware('auth')->prefix('homepage')->group(function() {
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
     Route::delete('/post/{id}', [ProfileController::class, 'destroy'])->name('posts.delete');
-
+    Route::post('/likes/toggle', [ProfileController::class, 'toggleLike'])->name('likes.toggle');
 
 });
 
