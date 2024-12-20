@@ -154,8 +154,8 @@
     });
   });
 
-  // Listen for new messages every 5 seconds
-  setInterval(function() {
+// Listen for new messages every 5 seconds
+setInterval(function() {
   var lastMessageId = $('#chat-messages .message').last().data('message-id');
 
   if (lastMessageId) {
