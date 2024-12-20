@@ -7,7 +7,11 @@
 @section('title', 'Niche')
 
 @section('content')
-
+    @if(session('successfullyCommented'))
+        <div class="alert alert-success" role="alert">
+            Successfully commented on blog: <b>"{{ $blogData->title }}"</b>
+        </div>
+    @endif
     <div class="title px-1 pt-3 text-white"><h2 class="p-0 m-0">{{ $blogData->title }}</h2><p class="m-0 p-0">by: @ {{ $blogData->username }}</p></div>
     <hr class="border-white">
 
@@ -67,5 +71,6 @@
             }
         });
         content.style.display = 'block';
+
     </script>
 @endsection

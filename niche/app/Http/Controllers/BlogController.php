@@ -126,7 +126,7 @@ class BlogController extends Controller{
         ]);
         
         if($comment){
-            return redirect()->route('viewBlog', ['value' => $request->input('blog_id')])->with('successfullyCommented');
+            return redirect()->route('viewBlog', ['value' => $request->input('blog_id')])->with('successfullyCommented', 'a');
         } else {
             return redirect()->back()->with('error');
         }
