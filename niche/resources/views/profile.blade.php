@@ -32,8 +32,8 @@
 
     <!-- navigation -->
     <div class="profile-tabs mt-3 d-flex justify-content-around border-left">
-        <button class="btn btn-link text-decoration-none text-light fw-bold border-x" onclick="openposts()" id="btn1">Posts</button>
-        <button class="btn btn-link text-decoration-none text-light" onclick="openlikes()" id="btn2">Likes</button>
+        <button class="btn btn-link text-decoration-none text-light fw-bold border-x" onclick="loadPosts()" id="btn1">Posts</button>
+        <!-- <button class="btn btn-link text-decoration-none text-light" onclick="loadLikes()" id="btn2">Likes</button> -->
     </div>
 <!-- post -->
     <div id="posts-content" class="mt-3 text-light">
@@ -76,9 +76,7 @@
 
 
     <!-- Likes Section -->
-    <div id="likes-content" class="d-none mt-3">
-        <!-- need likes here -->
-    </div>
+        
 </div>
 
 <script src="{{ asset('/js/profilescript.js') }}"></script>

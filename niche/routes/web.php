@@ -12,7 +12,6 @@ use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ChatController;
-
 use Illuminate\Support\Facades\Auth;
 
 
@@ -45,6 +44,7 @@ Route::middleware('auth')->group(function () {
 
 // Route::middleware('admin')->group(function() {
 // });
+//these are all protected of access inside the controller, no worries.
 Route::get('/admin', [AdminController::class, 'loadAdminPage'])->name('adminPage');
 Route::get('/admin/user/{id}', [AdminController::class, 'loadUserPosts'])->name('admin.userDetail');
 Route::get('/admin/blog/{id}', [AdminController::class, 'viewUserPost'])->name('admin.viewPost');
@@ -58,15 +58,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/user', [ChatController::class, 'fetchUserMessages'])->name('message.user');
 });
 Route::middleware('auth')->get('/message/new', [ChatController::class, 'getNewMessages'])->name('message.new');
+Route::post('/likes/toggle', [HomepageController::class, 'toggleLike'])->name('likes.toggle');
 
 
 
 
 Route::middleware('auth')->prefix('homepage')->group(function() {
     Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'showProfPage'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'handleProfileForm1'])->name('profileForm1.handle');
     Route::delete('/post/{id}', [ProfileController::class, 'destroy'])->name('posts.delete');
-
+    Route::post('/likes/toggle', [ProfileController::class, 'toggleLike'])->name('likes.toggle');
 
 });
 
@@ -78,6 +80,8 @@ Route::middleware('auth')->prefix('blog')->group(function(){                // h
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');
     Route::post('/save', [BlogController::class, 'saveBlogSubmit'])->name('saveBlog.submit');
     Route::post('/blogs/search', [BlogController::class, 'ajaxSearch'])->name('blogs.search');
+    
+    Route::post('/comment', [BlogController::class, 'createComment'])->name('blogs.comment');
 });
 Route::get('/blog/view/{value}', [BlogController::class, 'viewBlog'])->name('viewBlog');     //maybe I should return the user ID so I can add the edit button if it's their own Blog.
 
