@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix('homepage')->group(function() {
 
 
 
+
 Route::middleware('auth')->prefix('blog')->group(function(){                // havent implemented yet.
     Route::get('/create', [BlogController::class, 'createBlog'])->name('createBlog');
     Route::post('/edit', [BlogController::class, 'editBlogSubmit'])->name('editBlog.submit');

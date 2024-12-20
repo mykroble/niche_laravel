@@ -59,3 +59,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // Ensure posts content is shown by default
   openposts();
 });
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.delete-post-btn').forEach(button => {
+      button.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const form = this.closest('form'); // Find the parent form
+          if (confirm('Are you sure you want to delete this post?')) {
+              form.submit(); // Submit the form
+          }
+      });
+  });
+});
+
